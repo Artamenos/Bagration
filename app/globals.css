@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-brand-blue: #3272cd;
+  --color-brand-red: #e21e25;
+  --color-brand-bg: #f5f8fe;
 }
 
 @theme inline {
@@ -20,4 +23,13 @@
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+.site-container {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }

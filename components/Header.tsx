@@ -38,7 +38,7 @@ export function Header() {
 
   return (
     <header className="bg-black text-white">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+      <div className="site-container flex h-20 max-w-7xl items-center justify-between px-6">
         <a href="#" className="flex items-center gap-4">
           <img
             src="/images/logo.png"
@@ -59,8 +59,8 @@ export function Header() {
                 href={item.href}
                 className={
                   isActive
-                    ? "border-b-2 border-red-600 pb-2 text-red-600"
-                    : "border-b-2 border-transparent pb-2 text-white transition-colors hover:text-red-500"
+                    ? "border-b-2 border-[var(--color-brand-red)] pb-2 text-[var(--color-brand-red)]"
+                    : "border-b-2 border-transparent pb-2 text-white transition-colors hover:text-[var(--color-brand-red)]"
                 }
               >
                 {item.label}

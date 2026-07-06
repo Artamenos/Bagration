@@ -1,7 +1,7 @@
 export function About() {
   return (
-    <section id="about" className="bg-slate-50 py-24">
-      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-6 lg:grid-cols-2 lg:items-center">
+    <section id="about" className="bg-[var(--color-brand-bg)] py-24">
+      <div className="site-container grid max-w-[1200px] grid-cols-1 gap-12 px-6 lg:grid-cols-2 lg:items-center">
         <img
           src="/images/club-img.png"
           alt="Спортсмены клуба Багратион"
