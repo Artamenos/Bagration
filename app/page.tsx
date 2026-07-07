@@ -4,6 +4,7 @@ import { About } from "@/sections/About";
 import { Coaches } from "@/sections/Coaches";
 import { Signup } from "@/sections/Signup";
 import { Albums } from "@/sections/Albums";
+import { Events } from "@/sections/Events";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <About />
         <Coaches />
         <Signup />
+        <Events />
         <Albums />
       </main>
     </>
