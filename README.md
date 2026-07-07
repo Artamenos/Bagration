@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Багратион
 
-## Getting Started
+Сайт спортивного клуба карате киокушин «Багратион».
 
-First, run the development server:
+Проект создается как новая версия клубного сайта: современный лендинг с основными разделами о клубе, тренерах, записи на пробную тренировку, фотоальбомах и будущими модулями для новостей, мероприятий и администрирования контента.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Цель проекта — сделать удобный, визуально цельный и расширяемый сайт клуба, который можно будет постепенно развивать: добавлять новые секции, подключать данные с backend, управлять новостями, тренерами, расписанием и заявками через админ-панель.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Основные Разделы
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Первый экран с представлением клуба.
+- Блок «О клубе».
+- Секция тренеров с карточками.
+- Форма онлайн-записи на пробную тренировку.
+- Фотоальбомы с мероприятий.
+- В дальнейшем: новости, календарь мероприятий, контакты, подвал и админ-панель.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Стек
 
-## Learn More
+- **Next.js** — React-фреймворк для структуры сайта, маршрутизации и сборки.
+- **React** — компонентный подход к интерфейсу.
+- **TypeScript** — типизация данных и компонентов.
+- **Tailwind CSS** — стилизация интерфейса через utility-классы.
+- **lucide-react** — иконки для интерфейсных элементов.
 
-To learn more about Next.js, take a look at the following resources:
+## Подход
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Сайт собирается модульно: каждая крупная часть страницы вынесена в отдельную секцию, а повторяющиеся элементы оформляются как компоненты. Такой подход упрощает поддержку проекта и позволит в дальнейшем безболезненно подключить backend и админ-панель.
