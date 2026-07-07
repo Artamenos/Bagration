@@ -17,12 +17,12 @@ type Coach = {
 
 function CoachCard({ coach }: { coach: Coach }) {
   return (
-    <article className="w-[265px] overflow-hidden rounded-[4px] border border-neutral-200 bg-[var(--color-brand-bg)] shadow-sm">
+    <article className="w-[240px] overflow-hidden rounded-[4px] border border-neutral-200 bg-[var(--color-brand-bg)] shadow-sm">
       <div
-        className="relative h-[328px] overflow-hidden bg-[var(--color-brand-bg)] bg-top bg-no-repeat"
+        className="relative h-[295px] overflow-hidden bg-[var(--color-brand-bg)] bg-top bg-no-repeat"
         style={{
           backgroundImage: "url('/images/logo_coaches.png')",
-          backgroundSize: "265px auto",
+          backgroundSize: "240px auto",
         }}
       >
         <img
@@ -32,14 +32,14 @@ function CoachCard({ coach }: { coach: Coach }) {
         />
       </div>
 
-      <div className="bg-white px-3 py-3 text-center">
-        <h3 className="text-[20px] font-normal leading-tight text-black">
+      <div className="bg-white px-3 py-2.5 text-center">
+        <h3 className="text-lg font-normal leading-tight text-black">
           {coach.name}
         </h3>
 
         <button
           type="button"
-          className="mt-2 w-full cursor-pointer rounded-[6px] bg-[var(--color-brand-bg)] px-3 py-1.5 text-[15px] font-medium text-[var(--color-brand-blue)] transition-colors hover:bg-[var(--color-brand-blue)] hover:text-white"
+          className="mt-2 w-full cursor-pointer rounded-[6px] bg-[var(--color-brand-bg)] px-3 py-1.5 text-sm font-medium text-[var(--color-brand-blue)] transition-colors hover:bg-[var(--color-brand-blue)] hover:text-white"
         >
           Открыть информацию
         </button>
@@ -55,56 +55,51 @@ export function Coaches() {
   return (
     <section id="coaches" className="bg-white py-16">
       <div className="site-container">
-        <div className="grid grid-cols-1 gap-6 lg:flex lg:items-start lg:justify-between">
-          <div className="max-w-[430px]">
-            <p className="text-[18px] font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">
-              Команда клуба
-            </p>
+        <div className="grid grid-cols-1 justify-center gap-6 lg:grid-cols-[repeat(5,240px)]">
+          <div className="flex flex-col justify-between lg:col-span-2">
+            <div>
+              <p className="text-lg font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">
+                Команда клуба
+              </p>
 
-            <h2 className="mt-3 text-[44px] font-bold uppercase leading-none text-black">
-              Наши тренеры
-            </h2>
+              <h2 className="mt-3 text-5xl font-bold uppercase leading-none text-black">
+                Наши тренеры
+              </h2>
 
-            <p className="mt-5 text-[20px] leading-7 text-neutral-800">
-              Тренеры клуба «Багратион» — действующие спортсмены и наставники,
-              которые помогают развивать технику, дисциплину и уверенность.
-            </p>
+              <p className="mt-5 max-w-[430px] text-xl leading-7 text-neutral-800">
+                Тренеры клуба «Багратион» — действующие спортсмены и
+                наставники, которые помогают развивать технику, дисциплину и
+                уверенность.
+              </p>
+            </div>
 
-            <div className="mt-7 grid grid-cols-2 gap-3">
+            <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="border-l-4 border-[var(--color-brand-red)] bg-[var(--color-brand-bg)] px-4 py-3">
-                <div className="text-[30px] font-bold leading-none text-black">
+                <div className="text-3xl font-bold leading-none text-black">
                   8
                 </div>
-                <div className="mt-1 text-[15px] leading-tight text-neutral-700">
+                <div className="mt-1 text-base leading-tight text-neutral-700">
                   тренеров
                 </div>
               </div>
 
               <div className="border-l-4 border-[var(--color-brand-blue)] bg-[var(--color-brand-bg)] px-4 py-3">
-                <div className="text-[30px] font-bold leading-none text-black">
+                <div className="text-3xl font-bold leading-none text-black">
                   10+
                 </div>
-                <div className="mt-1 text-[15px] leading-tight text-neutral-700">
+                <div className="mt-1 text-base leading-tight text-neutral-700">
                   лет опыта
                 </div>
               </div>
             </div>
-
-            <ul className="mt-5 space-y-2 text-[18px] leading-6 text-neutral-800">
-              <li>Детские и взрослые группы</li>
-              <li>Подготовка к аттестациям</li>
-              <li>Соревнования и учебные сборы</li>
-            </ul>
           </div>
 
-          <div className="grid grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 lg:flex lg:justify-end">
-            {topCoaches.map((coach) => (
-              <CoachCard key={coach.id} coach={coach} />
-            ))}
-          </div>
+          {topCoaches.map((coach) => (
+            <CoachCard key={coach.id} coach={coach} />
+          ))}
         </div>
 
-        <div className="mt-6 grid grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 lg:grid-cols-[repeat(5,265px)] lg:justify-between">
+        <div className="mt-6 grid grid-cols-1 justify-center gap-6 sm:grid-cols-2 lg:grid-cols-[repeat(5,240px)]">
           {bottomCoaches.map((coach) => (
             <CoachCard key={coach.id} coach={coach} />
           ))}

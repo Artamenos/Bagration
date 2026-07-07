@@ -20,21 +20,21 @@ export function Albums() {
     <section id="albums" className="overflow-hidden bg-[var(--color-brand-bg)]">
       <div className="site-container grid h-[504px] grid-cols-1 items-start gap-12 overflow-hidden lg:grid-cols-[360px_1fr]">
         <div className="py-12 pr-4">
-          <p className="text-[18px] font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">
+          <p className="text-lg font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">
             Фотоархив клуба
           </p>
 
-          <h2 className="mt-3 text-[44px] font-bold uppercase leading-[1.08] text-black">
+          <h2 className="mt-3 text-5xl font-bold uppercase leading-tight text-black">
             Альбомы
             <br />с мероприятий
           </h2>
 
-          <p className="mt-5 text-[20px] leading-7 text-neutral-800">
+          <p className="mt-5 text-xl leading-7 text-neutral-800">
             Соревнования, аттестации, сборы и тренировки клуба в фотографиях.
             Собираем важные моменты и победы спортсменов.
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-3 text-[16px] text-neutral-700">
+          <div className="mt-7 flex flex-wrap gap-3 text-base text-neutral-700">
             <span className="bg-white px-3 py-2">Соревнования</span>
             <span className="bg-white px-3 py-2">Аттестации</span>
             <span className="bg-white px-3 py-2">Сборы</span>
@@ -42,7 +42,7 @@ export function Albums() {
 
           <a
             href="#events"
-            className="mt-8 inline-flex h-[48px] items-center gap-3 rounded-[6px] bg-[var(--color-brand-blue)] px-6 text-[18px] font-bold text-white transition-colors hover:bg-[#245ba8]"
+            className="mt-8 inline-flex h-[48px] items-center gap-3 rounded-[6px] bg-[var(--color-brand-blue)] px-6 text-lg font-bold text-white transition-colors hover:bg-[#245ba8]"
           >
             Смотреть больше
             <ArrowRight size={22} strokeWidth={2.4} />
