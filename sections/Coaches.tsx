@@ -53,9 +53,9 @@ export function Coaches() {
   const bottomCoaches = coaches.slice(3);
 
   return (
-    <section id="coaches" className="bg-white py-16">
+    <section id="coaches" className="bg-white py-20">
       <div className="site-container">
-        <div className="grid grid-cols-1 justify-center gap-6 lg:grid-cols-[repeat(5,240px)]">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[repeat(5,240px)] lg:justify-between">
           <div className="flex flex-col justify-between lg:col-span-2">
             <div>
               <p className="text-lg font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">
@@ -99,7 +99,7 @@ export function Coaches() {
           ))}
         </div>
 
-        <div className="mt-6 grid grid-cols-1 justify-center gap-6 sm:grid-cols-2 lg:grid-cols-[repeat(5,240px)]">
+        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-[repeat(5,240px)] lg:justify-between">
           {bottomCoaches.map((coach) => (
             <CoachCard key={coach.id} coach={coach} />
           ))}

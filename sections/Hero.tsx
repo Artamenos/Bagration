@@ -3,7 +3,8 @@ import { CalendarDays, Phone } from "lucide-react";
 export function Hero() {
   return (
     <section id="hero" className="relative overflow-hidden bg-white">
-      <div className="site-container grid min-h-[calc(100vh-80px)] max-w-[1400px] grid-cols-1 items-center gap-16 px-8 py-14 lg:grid-cols-[0.9fr_1.1fr]">        <div>
+      <div className="site-container grid min-h-[calc(100vh-80px)] max-w-[1400px] grid-cols-1 items-center gap-16 px-8 py-14 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
           <h1 className="-ml-1 text-9xl font-normal uppercase leading-[0.9] tracking-[-0.02em] text-black">
             Багратион
           </h1>

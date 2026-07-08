@@ -17,7 +17,7 @@ const albumColumns = [
 
 export function Albums() {
   return (
-    <section id="albums" className="overflow-hidden bg-[var(--color-brand-bg)]">
+    <section id="albums" className="overflow-hidden bg-[var(--color-brand-bg)] py-20">
       <div className="site-container grid h-[504px] grid-cols-1 items-start gap-12 overflow-hidden lg:grid-cols-[360px_1fr]">
         <div className="py-12 pr-4">
           <p className="text-lg font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">

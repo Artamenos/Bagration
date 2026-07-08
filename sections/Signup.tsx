@@ -46,16 +46,16 @@ export function Signup() {
   const [phone, setPhone] = useState("");
 
   return (
-    <section id="signup" className="bg-white py-16">
+    <section id="signup" className="bg-white py-20">
       <div className="site-container">
-        <div className="mx-auto grid max-w-[1272px] grid-cols-1 overflow-hidden rounded-[4px] bg-[var(--color-brand-bg)] lg:grid-cols-[612px_1fr]">
+        <div className="mx-auto grid max-w-[1272px] grid-cols-1 overflow-hidden rounded-[4px] border border-neutral-200 bg-[var(--color-brand-bg)] shadow-sm lg:grid-cols-[612px_1fr]">
           <img
             src="/images/sign_up.png"
             alt="Спортсмены клуба Багратион на соревнованиях"
-            className="block w-full"
+            className="h-full w-full object-cover"
           />
 
-          <div className="px-9 py-4">
+          <div className="px-9 py-5">
             <h2 className="text-4xl font-bold leading-none text-black">
               Онлайн-запись на пробную тренировку
             </h2>

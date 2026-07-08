@@ -1,11 +1,12 @@
 "use client";
+
 import { useEffect, useState } from "react";
 
 const navItems = [
   { label: "Главная", href: "#hero", id: "hero" },
   { label: "О клубе", href: "#about", id: "about" },
-  { label: "Новости", href: "#news", id: "news" },
   { label: "Тренеры", href: "#coaches", id: "coaches" },
+  { label: "Новости", href: "#news", id: "news" },
   { label: "Мероприятия", href: "#events", id: "events" },
 ];
 
@@ -14,7 +15,7 @@ export function Header() {
 
   useEffect(() => {
     function updateActiveSection() {
-      const activationLine = window.scrollY + window.innerHeight * 0.40;
+      const activationLine = window.scrollY + window.innerHeight * 0.4;
 
       const currentSection = navItems.findLast((item) => {
         const section = document.getElementById(item.id);

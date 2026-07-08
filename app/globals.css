@@ -13,11 +13,8 @@
   --color-foreground: var(--foreground);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -25,6 +22,8 @@ body {
   color: var(--foreground);
   padding-top: 80px;
   scroll-padding-top: 80px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
 }
 
 .site-container {
@@ -34,4 +33,30 @@ body {
   margin-right: auto;
   padding-left: 24px;
   padding-right: 24px;
+}
+
+.landing-flow {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent calc(50% - 720px),
+      rgba(50, 114, 205, 0.14) calc(50% - 720px),
+      rgba(50, 114, 205, 0.14) calc(50% - 718px),
+      transparent calc(50% - 718px)
+    ),
+    #ffffff;
+}
+
+@media (max-width: 1535px) {
+  .landing-flow {
+    background: #ffffff;
+  }
+}
+
+::selection {
+  background: var(--color-brand-red);
+  color: #ffffff;
 }

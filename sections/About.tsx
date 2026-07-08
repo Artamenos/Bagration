@@ -1,6 +1,6 @@
 export function About() {
   return (
-    <section id="about" className="bg-[var(--color-brand-bg)] py-24">
+    <section id="about" className="bg-[var(--color-brand-bg)] py-20">
       <div className="site-container grid grid-cols-1 items-center gap-12 lg:grid-cols-[585px_3px_1fr] lg:gap-16">
         <img
           src="/images/club-img.png"

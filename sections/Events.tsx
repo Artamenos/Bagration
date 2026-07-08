@@ -158,7 +158,7 @@ export function Events() {
   }
 
   return (
-    <section id="events" className="bg-[var(--color-brand-bg)] py-16">
+    <section id="events" className="bg-white py-20">
       <div className="site-container">
         <div className="mb-6 text-center">
           <p className="text-lg font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">

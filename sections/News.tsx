@@ -178,7 +178,7 @@ export function News() {
   }
 
   return (
-    <section id="news" className="bg-white py-16">
+    <section id="news" className="bg-white py-20">
       <div className="site-container">
         <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
           <div>
