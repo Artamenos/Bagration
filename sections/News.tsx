@@ -7,7 +7,7 @@ import {
   ExternalLink,
   X,
 } from "lucide-react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 type NewsItem = {
   id: number;
@@ -77,46 +77,31 @@ const news: NewsItem[] = [
       "Такие встречи помогают лучше понимать цели тренировок и выстраивать понятный план развития спортсмена.",
     image: "/images/hero-team.png",
   },
-  {
-    id: 6,
-    title: "Готовимся к летним учебным сборам",
-    date: "2026-07-18",
-    category: "Сборы",
-    description:
-      "В программе сборов техника, физическая подготовка, работа в парах и отдельные занятия по дисциплине.",
-    details:
-      "Сборы дают спортсменам больше практики за короткий срок и помогают быстрее увидеть слабые места в технике.",
-    image: "/images/sign_up.png",
-  },
 ];
 
 function formatNewsDate(date: string) {
   return date.split("-").reverse().join(".");
 }
 
-function NewsButton({ item, onOpen }: { item: NewsItem; onOpen: () => void }) {
-  const buttonClass =
-    "inline-flex h-10 w-fit items-center justify-center gap-2 rounded-[4px] bg-[var(--color-brand-blue)] px-5 text-base font-bold text-white transition-colors hover:bg-[#245ba8]";
+function getWrappedIndex(index: number) {
+  return (index + news.length) % news.length;
+}
 
-  if (item.detailsUrl) {
-    return (
-      <a
-        href={item.detailsUrl}
-        target="_blank"
-        rel="noreferrer"
-        className={buttonClass}
-      >
-        Подробнее
-        <ExternalLink size={18} strokeWidth={2.3} />
-      </a>
-    );
-  }
-
+function SideNewsCard({ item }: { item: NewsItem }) {
   return (
-    <button type="button" onClick={onOpen} className={buttonClass}>
-      Подробнее
-      <ExternalLink size={18} strokeWidth={2.3} />
-    </button>
+    <article className="hidden h-[300px] overflow-hidden rounded-[4px] border border-neutral-200 bg-white opacity-35 shadow-sm lg:block">
+      <img src={item.image} alt={item.title} className="h-[175px] w-full object-cover" />
+
+      <div className="p-5">
+        <p className="text-base font-medium text-[var(--color-brand-blue)]">
+          {item.category}
+        </p>
+
+        <h3 className="mt-2 line-clamp-2 text-2xl font-bold leading-tight text-black">
+          {item.title}
+        </h3>
+      </div>
+    </article>
   );
 }
 
@@ -167,100 +152,114 @@ function NewsModal({
 }
 
 export function News() {
+  const [activeIndex, setActiveIndex] = useState(0);
   const [openedNews, setOpenedNews] = useState<NewsItem | null>(null);
-  const sliderRef = useRef<HTMLDivElement | null>(null);
 
-  function scrollNews(direction: number) {
-    sliderRef.current?.scrollBy({
-      left: direction * 340,
-      behavior: "smooth",
-    });
+  const activeNews = news[activeIndex];
+  const previousNews = news[getWrappedIndex(activeIndex - 1)];
+  const nextNews = news[getWrappedIndex(activeIndex + 1)];
+
+  function showPreviousNews() {
+    setActiveIndex((currentIndex) => getWrappedIndex(currentIndex - 1));
+  }
+
+  function showNextNews() {
+    setActiveIndex((currentIndex) => getWrappedIndex(currentIndex + 1));
   }
 
   return (
-    <section id="news" className="bg-white py-20">
+    <section id="news" className="bg-white pb-20 pt-4">
       <div className="site-container">
-        <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
-          <div>
-            <p className="text-lg font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">
-              Жизнь клуба
-            </p>
+        <div className="grid min-h-[350px] grid-cols-[1fr_56px_minmax(0,980px)_56px_1fr] items-center gap-5">
+          <SideNewsCard item={previousNews} />
 
-            <h2 className="mt-3 text-5xl font-bold uppercase leading-none text-black">
-              Новости
-            </h2>
-          </div>
+          <button
+            type="button"
+            onClick={showPreviousNews}
+            className="z-20 flex h-12 w-12 items-center justify-center rounded-[4px] border border-neutral-200 bg-white text-[var(--color-brand-blue)] shadow-sm transition-colors hover:border-[var(--color-brand-blue)]"
+            aria-label="Предыдущая новость"
+          >
+            <ChevronLeft size={28} />
+          </button>
 
-          <div className="flex items-end justify-between gap-6 lg:w-[620px]">
-            <p className="max-w-[460px] text-xl leading-7 text-neutral-800">
-              Компактная лента новостей клуба: соревнования, наборы, тренировки
-              и фотоотчеты.
-            </p>
+          <article className="relative z-10 col-span-3 grid h-[310px] w-full overflow-hidden rounded-[4px] border border-neutral-200 bg-white shadow-sm lg:col-span-1 lg:grid-cols-[470px_1fr]">
+            <img
+              src={activeNews.image}
+              alt={activeNews.title}
+              className="h-[240px] w-full object-cover lg:h-full"
+            />
 
-            <div className="hidden shrink-0 items-center gap-3 sm:flex">
-              <button
-                type="button"
-                onClick={() => scrollNews(-1)}
-                className="flex h-11 w-11 items-center justify-center rounded-[4px] border border-neutral-200 text-[var(--color-brand-blue)] transition-colors hover:border-[var(--color-brand-blue)]"
-                aria-label="Предыдущие новости"
-              >
-                <ChevronLeft size={24} />
-              </button>
+            <div className="grid h-full grid-rows-[auto_auto_1fr_auto] p-5">
+              <div className="flex flex-wrap items-center gap-4 text-base font-medium">
+                <span className="text-[var(--color-brand-blue)]">
+                  {activeNews.category}
+                </span>
 
-              <button
-                type="button"
-                onClick={() => scrollNews(1)}
-                className="flex h-11 w-11 items-center justify-center rounded-[4px] border border-neutral-200 text-[var(--color-brand-blue)] transition-colors hover:border-[var(--color-brand-blue)]"
-                aria-label="Следующие новости"
-              >
-                <ChevronRight size={24} />
-              </button>
+                <span className="flex items-center gap-2 text-neutral-500">
+                  <CalendarDays size={17} />
+                  {formatNewsDate(activeNews.date)}
+                </span>
+              </div>
+
+              <h3 className="mt-3 line-clamp-2 text-3xl font-bold leading-tight text-black">
+                {activeNews.title}
+              </h3>
+
+              <p className="mt-3 line-clamp-2 text-lg leading-6 text-neutral-800">
+                {activeNews.description}
+              </p>
+
+              <div className="self-end pt-4">
+                {activeNews.detailsUrl ? (
+                  <a
+                    href={activeNews.detailsUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 text-lg font-bold text-[var(--color-brand-blue)] transition-colors hover:text-[#245ba8]"
+                  >
+                    Читать
+                    <ExternalLink size={19} strokeWidth={2.3} />
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setOpenedNews(activeNews)}
+                    className="inline-flex items-center gap-2 text-lg font-bold text-[var(--color-brand-blue)] transition-colors hover:text-[#245ba8]"
+                  >
+                    Читать
+                    <ExternalLink size={19} strokeWidth={2.3} />
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
+          </article>
+
+          <button
+            type="button"
+            onClick={showNextNews}
+            className="z-20 flex h-12 w-12 items-center justify-center rounded-[4px] border border-neutral-200 bg-white text-[var(--color-brand-blue)] shadow-sm transition-colors hover:border-[var(--color-brand-blue)]"
+            aria-label="Следующая новость"
+          >
+            <ChevronRight size={28} />
+          </button>
+
+          <SideNewsCard item={nextNews} />
         </div>
 
-        <div
-          ref={sliderRef}
-          className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {news.map((item) => (
-            <article
+        <div className="mt-2 flex justify-center gap-2">
+          {news.map((item, index) => (
+            <button
               key={item.id}
-              className="flex min-w-[300px] snap-start overflow-hidden rounded-[4px] border border-neutral-200 bg-white shadow-sm lg:min-w-[330px]"
-            >
-              <div className="flex w-full flex-col">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="h-[170px] w-full object-cover"
-                />
-
-                <div className="flex flex-1 flex-col p-4">
-                  <div className="flex flex-wrap items-center gap-3 text-base font-medium">
-                    <span className="text-[var(--color-brand-blue)]">
-                      {item.category}
-                    </span>
-
-                    <span className="flex items-center gap-1.5 text-[var(--color-brand-red)]">
-                      <CalendarDays size={17} />
-                      {formatNewsDate(item.date)}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-3 text-2xl font-bold leading-tight text-black">
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-2 line-clamp-3 text-lg leading-6 text-neutral-800">
-                    {item.description}
-                  </p>
-
-                  <div className="mt-auto pt-4">
-                    <NewsButton item={item} onOpen={() => setOpenedNews(item)} />
-                  </div>
-                </div>
-              </div>
-            </article>
+              type="button"
+              onClick={() => setActiveIndex(index)}
+              className={[
+                "h-2.5 rounded-full transition-all",
+                index === activeIndex
+                  ? "w-8 bg-[var(--color-brand-red)]"
+                  : "w-2.5 bg-neutral-300 hover:bg-[var(--color-brand-blue)]",
+              ].join(" ")}
+              aria-label={`Открыть новость ${index + 1}`}
+            />
           ))}
         </div>
       </div>

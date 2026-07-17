@@ -46,7 +46,7 @@ export function Signup() {
   const [phone, setPhone] = useState("");
 
   return (
-    <section id="signup" className="bg-white py-20">
+    <section id="signup" className="bg-white py-28">
       <div className="site-container">
         <div className="mx-auto grid max-w-[1272px] grid-cols-1 overflow-hidden rounded-[4px] border border-neutral-200 bg-[var(--color-brand-bg)] shadow-sm lg:grid-cols-[612px_1fr]">
           <img

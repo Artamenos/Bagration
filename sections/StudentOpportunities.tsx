@@ -96,7 +96,7 @@ export function StudentOpportunities() {
           ))}
         </div>
 
-        <div className="lg:sticky lg:top-28">
+        <div className="h-fit lg:sticky lg:top-28 lg:self-start">
           <p className="text-lg font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">
             Обучение и развитие
           </p>

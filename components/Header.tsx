@@ -8,6 +8,7 @@ const navItems = [
   { label: "Тренеры", href: "#coaches", id: "coaches" },
   { label: "Новости", href: "#news", id: "news" },
   { label: "Мероприятия", href: "#events", id: "events" },
+  { label: "Альбом", href: "#albums", id: "albums" },
 ];
 
 export function Header() {
@@ -15,7 +16,7 @@ export function Header() {
 
   useEffect(() => {
     function updateActiveSection() {
-      const activationLine = window.scrollY + window.innerHeight * 0.4;
+      const activationLine = window.scrollY + window.innerHeight * 0.55;
 
       const currentSection = navItems.findLast((item) => {
         const section = document.getElementById(item.id);
@@ -42,7 +43,7 @@ export function Header() {
   return (
     <header className="fixed left-0 top-0 z-50 w-full bg-black text-white">
       <div className="site-container flex h-20 max-w-7xl items-center justify-between px-6">
-        <a href="#" className="flex items-center gap-4">
+        <a href="#hero" className="flex items-center gap-4">
           <img
             src="/images/logo.png"
             alt="Логотип клуба Багратион"
@@ -52,7 +53,7 @@ export function Header() {
           <span className="text-4xl font-bold tracking-wide">Багратион</span>
         </a>
 
-        <nav className="hidden items-center gap-10 text-lg font-medium md:flex">
+        <nav className="hidden items-center gap-8 text-lg font-medium md:flex">
           {navItems.map((item) => {
             const isActive = item.id === activeSection;
 

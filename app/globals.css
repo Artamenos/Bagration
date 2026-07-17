@@ -37,7 +37,7 @@ body {
 
 .landing-flow {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background:
     linear-gradient(
       90deg,
