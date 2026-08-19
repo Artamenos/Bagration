@@ -603,21 +603,17 @@ function CoachModal({ coach, onClose }: { coach: Coach; onClose: () => void }) {
                 <>
                   <div className={`grid h-full overflow-hidden rounded-[4px] ${halls.length > 1 ? "grid-rows-2 gap-2" : "grid-rows-1"}`}>
                     {halls.map((hall) => (
-                      <div key={hall.mapQuery} className="relative min-h-0 overflow-hidden rounded-[4px]">
-                        <iframe
-                          src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(hall.mapQuery)}&z=15`}
-                          title={`Карта зала: ${hall.name}`}
-                          className="h-full w-full"
-                          loading="lazy"
-                        />
-
-                        <div className="absolute bottom-3 left-3 rounded-[4px] bg-white/95 px-3 py-2 text-sm leading-4 text-neutral-800 shadow-sm">
+                      <div
+                        key={hall.mapQuery}
+                        className="flex min-h-0 items-center rounded-[4px] border border-neutral-200 bg-[linear-gradient(135deg,#f8fafc_0%,#eef3f9_100%)] p-5"
+                      >
+                        <div className="rounded-[4px] bg-white px-4 py-3 text-sm leading-5 text-neutral-800 shadow-sm">
                           <p className="font-bold text-black">{hall.name}</p>
                           <p>{hall.address}</p>
                           <a
                             href={`https://yandex.ru/maps/?text=${encodeURIComponent(hall.mapQuery)}`}
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noopener noreferrer"
                             className="mt-1 inline-flex items-center gap-1.5 font-bold text-[var(--color-brand-blue)] transition-colors hover:text-[#245ba8]"
                           >
                             Открыть в Яндекс Картах

@@ -1,4 +1,4 @@
-import { CalendarDays, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 
 export function Hero() {
   return (
@@ -21,11 +21,11 @@ export function Hero() {
 
           <div className="mt-6 flex flex-wrap gap-5">
             <a
-              href="#signup"
+              href="#contact"
               className="inline-flex h-[50px] items-center justify-center gap-3 rounded-[6px] bg-[var(--color-brand-red)] px-8 text-xl font-bold text-white transition-colors hover:bg-[#c91920]"
             >
-              <CalendarDays size={24} strokeWidth={2.3} />
-              Записаться
+              <Phone size={24} strokeWidth={2.3} />
+              Пробная тренировка
             </a>
 
             <a

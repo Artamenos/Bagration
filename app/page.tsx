@@ -5,7 +5,7 @@ import { About } from "@/sections/About";
 import { News } from "@/sections/News";
 import { Coaches } from "@/sections/Coaches";
 import { StudentOpportunities } from "@/sections/StudentOpportunities";
-import { Signup } from "@/sections/Signup";
+import { ContactCall } from "@/sections/ContactCall";
 import { Albums } from "@/sections/Albums";
 import { Events } from "@/sections/Events";
 
@@ -19,7 +19,7 @@ export default function Home() {
         <About />
         <Coaches />
         <StudentOpportunities />
-        <Signup />
+        <ContactCall />
         <Events />
         <Albums />
       </main>
