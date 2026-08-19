@@ -29,43 +29,7 @@ type CalendarDay = {
   isCurrentMonth: boolean;
 };
 
-const events: EventItem[] = [
-  {
-    id: 1,
-    title: "Открытая тренировка клуба",
-    city: "Москва",
-    description:
-      "Тренировка для новичков и действующих спортсменов. Разбор базовой техники, работа в парах и ответы на вопросы родителей.",
-    details:
-      "На тренировке тренеры покажут базовые стойки, удары и элементы общей физической подготовки. Можно прийти без экипировки, главное — удобная спортивная форма.",
-    image: "/images/sign_up.png",
-    startDate: "2026-07-12",
-  },
-  {
-    id: 2,
-    title: "Учебно-тренировочные сборы",
-    city: "Московская область",
-    description:
-      "Интенсивные занятия по технике, физической подготовке и подготовке к аттестациям.",
-    details:
-      "Сборы проходят несколько дней подряд. В программе: техника кихон, работа в парах, растяжка, силовая подготовка и отдельные занятия по подготовке к аттестации.",
-    image: "/images/club-img.png",
-    startDate: "2026-07-18",
-    endDate: "2026-07-20",
-  },
-  {
-    id: 3,
-    title: "Кубок Багратиона",
-    city: "Москва",
-    description:
-      "Внутриклубные соревнования для детских и взрослых групп с участием тренерского состава.",
-    details:
-      "Соревнования помогут спортсменам получить первый соревновательный опыт, проверить технику и научиться спокойно работать в стрессовой ситуации.",
-    image: "/images/album.png",
-    startDate: "2026-08-03",
-    detailsUrl: "https://sc-bagration.ru",
-  },
-];
+const events: EventItem[] = [];
 
 const monthNames = [
   "Январь",
@@ -160,18 +124,18 @@ export function Events() {
   return (
     <section id="events" className="bg-white py-28">
       <div className="site-container">
-        <div className="mb-6 text-center">
-          <p className="text-lg font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">
-            Календарь клуба
-          </p>
-
-          <h2 className="mt-3 text-5xl font-bold uppercase leading-none text-black">
-            Мероприятия
-          </h2>
-        </div>
-
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[520px_1fr] lg:items-stretch">
           <div className="rounded-[4px] bg-white p-6 shadow-sm">
+            <div className="mb-6 border-b border-neutral-200 pb-5 text-center">
+              <p className="text-lg font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">
+                Календарь клуба
+              </p>
+
+              <h2 className="mt-2 text-5xl font-bold uppercase leading-none text-black">
+                Мероприятия
+              </h2>
+            </div>
+
             <div className="mb-6 flex items-center justify-between">
               <button
                 type="button"
@@ -196,7 +160,7 @@ export function Events() {
               </button>
             </div>
 
-            <div className="grid grid-cols-7 gap-y-3 text-center">
+            <div className="grid grid-cols-7 text-center">
               {weekDays.map((day) => (
                 <div key={day} className="mb-2 text-lg font-bold text-black">
                   {day}
@@ -245,7 +209,7 @@ export function Events() {
             </div>
           </div>
 
-          <article className="flex h-full flex-col overflow-hidden rounded-[4px] border border-neutral-200 bg-white p-6 shadow-sm">
+          <article className="flex h-full flex-col overflow-hidden rounded-[4px] bg-white p-6 shadow-sm">
             {selectedEvent ? (
               <>
                 <div className="flex items-center gap-2 text-lg font-medium text-[var(--color-brand-blue)]">
@@ -302,12 +266,13 @@ export function Events() {
                 />
 
                 <h3 className="mt-6 text-4xl font-bold text-black">
-                  На эту дату мероприятий нет
+                  {events.length === 0 ? "Мероприятий пока нет" : "На эту дату мероприятий нет"}
                 </h3>
 
                 <p className="mt-4 max-w-[420px] text-xl leading-7 text-neutral-700">
-                  Выберите красную дату в календаре, чтобы посмотреть описание,
-                  место проведения и изображение мероприятия.
+                  {events.length === 0
+                    ? "Актуальные мероприятия появятся здесь после публикации организаторами клуба."
+                    : "Выберите красную дату в календаре, чтобы посмотреть описание, место проведения и изображение мероприятия."}
                 </p>
               </div>
             )}

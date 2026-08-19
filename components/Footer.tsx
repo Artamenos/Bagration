@@ -2,9 +2,9 @@ import { MapPin, Phone } from "lucide-react";
 
 const footerNav = [
   { label: "Главная", href: "#hero" },
+  { label: "Новости", href: "#news" },
   { label: "О клубе", href: "#about" },
   { label: "Тренеры", href: "#coaches" },
-  { label: "Новости", href: "#news" },
   { label: "Мероприятия", href: "#events" },
   { label: "Альбом", href: "#albums" },
 ];
@@ -33,9 +33,9 @@ export function Footer() {
           <h2 className="text-xl font-bold uppercase tracking-[0.08em]">Контакты</h2>
 
           <div className="mt-5 space-y-4 text-lg text-white/80">
-            <a href="tel:+79991234567" className="flex items-center gap-3 transition-colors hover:text-white">
+            <a href="tel:+79150590050" className="flex items-center gap-3 transition-colors hover:text-white">
               <Phone size={22} className="text-[var(--color-brand-red)]" />
-              +7 (999) 123-45-67
+              +7 (915) 059-00-50
             </a>
 
             <div className="flex items-start gap-3">

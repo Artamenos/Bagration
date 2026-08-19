@@ -182,14 +182,14 @@ export function News() {
             <ChevronLeft size={28} />
           </button>
 
-          <article className="relative z-10 col-span-3 grid h-[310px] w-full overflow-hidden rounded-[4px] border border-neutral-200 bg-white shadow-sm lg:col-span-1 lg:grid-cols-[470px_1fr]">
+          <article className="relative z-10 col-span-3 flex h-[380px] w-full overflow-hidden rounded-[4px] border border-neutral-200 bg-white shadow-sm lg:col-span-1 lg:h-[310px] lg:flex-row">
             <img
               src={activeNews.image}
               alt={activeNews.title}
-              className="h-[240px] w-full object-cover lg:h-full"
+              className="h-[200px] w-full flex-none object-cover lg:h-full lg:w-[470px]"
             />
 
-            <div className="grid h-full grid-rows-[auto_auto_1fr_auto] p-5">
+            <div className="flex h-full min-h-0 flex-1 flex-col p-5">
               <div className="flex flex-wrap items-center gap-4 text-base font-medium">
                 <span className="text-[var(--color-brand-blue)]">
                   {activeNews.category}
@@ -209,7 +209,7 @@ export function News() {
                 {activeNews.description}
               </p>
 
-              <div className="self-end pt-4">
+              <div className="mt-auto pt-4">
                 {activeNews.detailsUrl ? (
                   <a
                     href={activeNews.detailsUrl}

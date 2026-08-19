@@ -29,7 +29,7 @@ export function Hero() {
             </a>
 
             <a
-              href="tel:+79991234567"
+              href="tel:+79150590050"
               className="inline-flex h-[50px] items-center justify-center gap-3 rounded-[6px] border-2 border-[var(--color-brand-blue)] px-8 text-xl font-bold text-[var(--color-brand-blue)] transition-colors hover:bg-[var(--color-brand-blue)] hover:text-white"
             >
               <Phone size={24} strokeWidth={2.3} />
