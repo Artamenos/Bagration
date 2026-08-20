@@ -2,15 +2,15 @@ import { ArrowRight } from "lucide-react";
 
 const albumColumns = [
   {
-    offset: "-translate-y-[104px]",
+    offset: "lg:-translate-y-[104px]",
     tiles: ["h-[150px]", "h-[188px]", "h-[260px]"],
   },
   {
-    offset: "-translate-y-[72px]",
+    offset: "lg:-translate-y-[72px]",
     tiles: ["h-[150px]", "h-[188px]", "h-[260px]"],
   },
   {
-    offset: "-translate-y-[40px]",
+    offset: "lg:-translate-y-[40px]",
     tiles: ["h-[188px]", "h-[188px]", "h-[260px]"],
   },
 ];
@@ -18,18 +18,18 @@ const albumColumns = [
 export function Albums() {
   return (
     <section id="albums" className="overflow-hidden bg-[var(--color-brand-bg)]">
-      <div className="site-container grid h-[504px] grid-cols-1 items-start gap-12 overflow-hidden lg:grid-cols-[360px_1fr]">
-        <div className="py-12 pr-4">
-          <p className="text-lg font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">
+      <div className="site-container grid h-auto grid-cols-1 items-start gap-8 overflow-hidden py-12 sm:gap-12 lg:h-[504px] lg:grid-cols-[360px_1fr] lg:py-0">
+        <div className="lg:py-12 lg:pr-4">
+          <p className="text-sm font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)] sm:text-lg">
             Фотоархив клуба
           </p>
 
-          <h2 className="mt-3 text-5xl font-bold uppercase leading-tight text-black">
+          <h2 className="mt-2 text-3xl font-bold uppercase leading-tight text-black sm:mt-3 sm:text-5xl">
             Альбомы
             <br />с мероприятий
           </h2>
 
-          <p className="mt-5 text-xl leading-7 text-neutral-800">
+          <p className="mt-4 text-base leading-6 text-neutral-800 sm:mt-5 sm:text-xl sm:leading-7">
             Соревнования, аттестации, сборы и тренировки клуба в фотографиях.
             Собираем важные моменты и победы спортсменов.
           </p>
@@ -42,15 +42,15 @@ export function Albums() {
 
           <a
             href="#events"
-            className="mt-8 inline-flex h-[48px] items-center gap-3 rounded-[6px] bg-[var(--color-brand-blue)] px-6 text-lg font-bold text-white transition-colors hover:bg-[#245ba8]"
+            className="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-[6px] bg-[var(--color-brand-blue)] px-6 text-base font-bold text-white transition-colors hover:bg-[#245ba8] sm:mt-8 sm:w-fit sm:text-lg"
           >
             Смотреть больше
             <ArrowRight size={22} strokeWidth={2.4} />
           </a>
         </div>
 
-        <div className="h-full overflow-hidden">
-          <div className="grid translate-y-10 grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="h-[420px] overflow-hidden lg:h-full">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:translate-y-10 lg:gap-6">
             {albumColumns.map((column, columnIndex) => (
               <div key={columnIndex} className={`grid gap-4 ${column.offset}`}>
                 {column.tiles.map((heightClass, imageIndex) => (

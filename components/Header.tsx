@@ -62,16 +62,16 @@ export function Header() {
   }, []);
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full bg-black text-white">
-      <div className="site-container flex h-20 max-w-7xl items-center justify-between px-6">
-        <a href="#hero" onClick={(event) => scrollToSection(event, "hero")} className="flex items-center gap-4">
+    <header className="fixed left-0 top-0 z-50 hidden w-full bg-black text-white md:block">
+      <div className="site-container flex h-16 max-w-7xl items-center justify-between md:h-20">
+        <a href="#hero" onClick={(event) => scrollToSection(event, "hero")} className="flex min-w-0 items-center gap-2 sm:gap-4">
           <img
             src="/images/logo.png"
             alt="Логотип клуба Багратион"
-            className="h-20 w-20 rounded-full object-contain"
+            className="h-14 w-14 shrink-0 rounded-full object-contain md:h-20 md:w-20"
           />
 
-          <span className="text-4xl font-bold tracking-wide">Багратион</span>
+          <span className="truncate text-2xl font-bold tracking-wide sm:text-3xl md:text-4xl">Багратион</span>
         </a>
 
         <nav className="hidden items-center gap-8 text-lg font-medium md:flex">

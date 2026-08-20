@@ -1,7 +1,12 @@
 "use client";
 
-import { Award, ExternalLink, MapPin, Trophy, X } from "lucide-react";
-import { type ReactNode, useState } from "react";
+import { Award, MapPin, Trophy, X } from "lucide-react";
+import { type ReactNode, useEffect, useState } from "react";
+import {
+  LocalInteractiveMap,
+  type LocalMapLocation,
+  type MapBounds,
+} from "@/components/LocalInteractiveMap";
 
 type ScheduleRow = {
   day: string;
@@ -13,6 +18,8 @@ type ScheduleSection = {
   title?: string;
   rows: ScheduleRow[];
 };
+
+type Hall = LocalMapLocation;
 
 type Coach = {
   id: number;
@@ -27,20 +34,47 @@ type Coach = {
     label: string;
     color: string;
   };
-  hall: {
-    name: string;
-    address: string;
-    mapQuery: string;
-  };
-  additionalHalls?: Array<{
-    name: string;
-    address: string;
-    mapQuery: string;
-  }>;
+  hall: Hall;
+  additionalHalls?: Hall[];
   schedules: ScheduleSection[];
   sportAchievements: string[];
   coachingAchievements: string[];
   personalAchievements: string[];
+};
+
+const timiryazevskayaBounds: MapBounds = {
+  minLat: 55.8045,
+  maxLat: 55.8218,
+  minLon: 37.546,
+  maxLon: 37.582,
+};
+
+const lobnyaBounds: MapBounds = {
+  minLat: 56.008,
+  maxLat: 56.019,
+  minLon: 37.47,
+  maxLon: 37.49,
+};
+
+const vernadskogoBounds: MapBounds = {
+  minLat: 55.644,
+  maxLat: 55.6622,
+  minLon: 37.455,
+  maxLon: 37.4895,
+};
+
+const raspletinaBounds: MapBounds = {
+  minLat: 55.7805,
+  maxLat: 55.799,
+  minLon: 37.462,
+  maxLon: 37.497,
+};
+
+const aprelevkaBounds: MapBounds = {
+  minLat: 55.526,
+  maxLat: 55.5615,
+  minLon: 37.053,
+  maxLon: 37.081,
 };
 
 const coaches: Coach[] = [
@@ -59,6 +93,9 @@ const coaches: Coach[] = [
       name: "Зал на Астрадамском проезде",
       address: "Москва, Астрадамский пр., д. 5",
       mapQuery: "Москва, Астрадамский проезд, 5",
+      point: { lat: 55.812663, lon: 37.560307 },
+      dataFile: "/maps/timiryazevskaya.osm.json",
+      bounds: timiryazevskayaBounds,
     },
     schedules: [
       {
@@ -112,9 +149,23 @@ const coaches: Coach[] = [
       "Тренер-преподаватель и председатель коллегии судей региональной федерации. Проводит занятия для детей разных возрастных групп в Москве и Лобне.",
     cardAddress: "Лобня, ул. Чехова, 3А",
     transit: { label: "МЦД-1 Лобня", color: "#F6A600" },
-    hall: { name: "Зал в Москве", address: "Москва, Тимирязево", mapQuery: "Москва, Тимирязево" },
+    hall: {
+      name: "Зал в Москве",
+      address: "Москва, ул. Тимирязевская, д. 16",
+      mapQuery: "Москва, улица Тимирязевская, 16",
+      point: { lat: 55.81412, lon: 37.566656 },
+      dataFile: "/maps/timiryazevskaya.osm.json",
+      bounds: timiryazevskayaBounds,
+    },
     additionalHalls: [
-      { name: "Зал в Лобне", address: "Лобня, ул. Чехова, 3А", mapQuery: "Лобня, улица Чехова, 3А" },
+      {
+        name: "Зал в Лобне",
+        address: "Московская область, Лобня, ул. Чехова, 3А",
+        mapQuery: "Московская область, Лобня, улица Чехова, 3А",
+        point: { lat: 56.013814, lon: 37.479843 },
+        dataFile: "/maps/lobnya.osm.json",
+        bounds: lobnyaBounds,
+      },
     ],
     schedules: [
       {
@@ -162,7 +213,14 @@ const coaches: Coach[] = [
       "Тренер-преподаватель, кандидат в мастера спорта. Проводит занятия для младшей и старшей детских групп.",
     cardAddress: "проспект Вернадского, 94к7",
     transit: { label: "метро Тропарёво", color: "#E42313" },
-    hall: { name: "Зал на проспекте Вернадского", address: "Москва, проспект Вернадского, 94к7", mapQuery: "Москва, проспект Вернадского, 94к7" },
+    hall: {
+      name: "Зал на проспекте Вернадского",
+      address: "Москва, проспект Вернадского, 94к7",
+      mapQuery: "Москва, проспект Вернадского, 94к7",
+      point: { lat: 55.653096, lon: 37.472216 },
+      dataFile: "/maps/vernadskogo.osm.json",
+      bounds: vernadskogoBounds,
+    },
     schedules: [
       {
         rows: [
@@ -197,7 +255,14 @@ const coaches: Coach[] = [
       "Мастер спорта международного класса по карате киокушинкай. Более десяти лет работает детским тренером.",
     cardAddress: "ул. Расплетина, 1",
     transit: { label: "метро Октябрьское Поле", color: "#8E479C" },
-    hall: { name: "Зал на улице Расплетина", address: "Москва, ул. Расплетина, 1", mapQuery: "Москва, улица Расплетина, 1" },
+    hall: {
+      name: "Зал на улице Расплетина",
+      address: "Москва, ул. Расплетина, 1",
+      mapQuery: "Москва, улица Расплетина, 1",
+      point: { lat: 55.789795, lon: 37.479618 },
+      dataFile: "/maps/raspletina.osm.json",
+      bounds: raspletinaBounds,
+    },
     schedules: [
       {
         rows: [
@@ -233,7 +298,14 @@ const coaches: Coach[] = [
       "Тренер-преподаватель, кандидат в мастера спорта. Готовит учеников к городским, областным и всероссийским соревнованиям.",
     cardAddress: "Апрелевка, ул. Жасминовая, 10",
     transit: { label: "МЦД-4 Апрелевка", color: "#40B7AD" },
-    hall: { name: "Зал на Жасминовой улице", address: "Апрелевка, ул. Жасминовая, д. 10", mapQuery: "Апрелевка, улица Жасминовая, 10" },
+    hall: {
+      name: "Зал на Жасминовой улице",
+      address: "Апрелевка, ул. Жасминовая, д. 10",
+      mapQuery: "Московская область, Апрелевка, улица Жасминовая, 10",
+      point: { lat: 55.53182, lon: 37.060599 },
+      dataFile: "/maps/aprelevka.osm.json",
+      bounds: aprelevkaBounds,
+    },
     schedules: [
       {
         rows: [
@@ -261,9 +333,39 @@ const coaches: Coach[] = [
       "Педагог по физической культуре и спорту. Проводит занятия для младших и старших групп в Апрелевке и Изварино.",
     cardAddress: "Апрелевка, ул. Августовская, 14",
     transit: { label: "МЦД-4 Апрелевка", color: "#40B7AD" },
-    hall: { name: "Зал в Апрелевке", address: "Апрелевка, ул. Августовская, 14", mapQuery: "Апрелевка, улица Августовская, 14" },
+    hall: {
+      name: "Зал на Августовской улице",
+      address: "Апрелевка, ул. Августовская, 14",
+      mapQuery: "Московская область, Апрелевка, Августовская улица, 14",
+      point: { lat: 55.549816, lon: 37.068441 },
+      dataFile: "/maps/aprelevka.osm.json",
+      bounds: aprelevkaBounds,
+    },
     additionalHalls: [
-      { name: "Зал в Изварино", address: "Изварино", mapQuery: "Москва, Изварино" },
+      {
+        name: "Зал на Жасминовой улице",
+        address: "Апрелевка, ул. Жасминовая, 9",
+        mapQuery: "Московская область, Апрелевка, Жасминовая улица, 9",
+        point: { lat: 55.530566, lon: 37.060743 },
+        dataFile: "/maps/aprelevka.osm.json",
+        bounds: aprelevkaBounds,
+      },
+      {
+        name: "Зал на Парковой улице",
+        address: "Апрелевка, ул. Парковая, 8/3",
+        mapQuery: "Московская область, Апрелевка, Парковая улица, 8/3",
+        point: { lat: 55.556569, lon: 37.073059 },
+        dataFile: "/maps/aprelevka.osm.json",
+        bounds: aprelevkaBounds,
+      },
+      {
+        name: "Зал на улице Самохина",
+        address: "Апрелевка, ул. Самохина, 9",
+        mapQuery: "Московская область, Апрелевка, улица Самохина, 9",
+        point: { lat: 55.550876, lon: 37.06183 },
+        dataFile: "/maps/aprelevka.osm.json",
+        bounds: aprelevkaBounds,
+      },
     ],
     schedules: [
       {
@@ -319,7 +421,14 @@ const coaches: Coach[] = [
       "Мастер спорта по киокусинкай, спортивный судья второй категории. Тренерский стаж — семь лет.",
     cardAddress: "ул. Тимирязевская, д. 16",
     transit: { label: "метро Тимирязевская", color: "#A1A2A3" },
-    hall: { name: "Зал на Тимирязевской", address: "Москва, ул. Тимирязевская, д. 16", mapQuery: "Москва, улица Тимирязевская, 16" },
+    hall: {
+      name: "Зал на Тимирязевской",
+      address: "Москва, ул. Тимирязевская, д. 16",
+      mapQuery: "Москва, улица Тимирязевская, 16",
+      point: { lat: 55.814142763938754, lon: 37.566691924265655 },
+      dataFile: "/maps/timiryazevskaya.osm.json",
+      bounds: timiryazevskayaBounds,
+    },
     schedules: [
       {
         title: "ОФП с элементами карате, 4+",
@@ -358,7 +467,14 @@ const coaches: Coach[] = [
       "Тренер-преподаватель, спортивный судья третьей категории. Имеет первый спортивный разряд по киокушин и звание КМС по вольной борьбе.",
     cardAddress: "ул. Яблочкова, д. 7",
     transit: { label: "метро Тимирязевская", color: "#A1A2A3" },
-    hall: { name: "АПИА Арена", address: "Москва, ул. Яблочкова, д. 7", mapQuery: "Москва, улица Яблочкова, 7" },
+    hall: {
+      name: "АПИА Арена",
+      address: "Москва, ул. Яблочкова, д. 7",
+      mapQuery: "Москва, улица Яблочкова, 7",
+      point: { lat: 55.816702, lon: 37.57925 },
+      dataFile: "/maps/timiryazevskaya.osm.json",
+      bounds: timiryazevskayaBounds,
+    },
     schedules: [
       {
         title: "Летний период",
@@ -389,21 +505,21 @@ function CoachCard({ coach, onOpen }: { coach: Coach; onOpen: (coach: Coach) => 
   const shortName = coach.name.split(" ").slice(0, 2).join(" ");
 
   return (
-    <article className="w-[240px] overflow-hidden rounded-[4px] border border-neutral-200 bg-[var(--color-brand-bg)] shadow-sm">
+    <article className="w-full min-w-0 overflow-hidden rounded-[4px] border border-neutral-200 bg-[var(--color-brand-bg)] shadow-sm lg:w-[240px]">
       <div
-        className="relative h-[295px] overflow-hidden bg-[var(--color-brand-bg)] bg-top bg-no-repeat"
+        className="relative aspect-[240/295] overflow-hidden bg-[var(--color-brand-bg)] bg-top bg-no-repeat"
         style={{
           backgroundImage: "url('/images/logo_coaches.png')",
-          backgroundSize: "240px auto",
+          backgroundSize: "100% auto",
         }}
       >
         <img src={coach.photo} alt={coach.name} className="absolute bottom-0 left-0 z-10 w-full" />
       </div>
 
-      <div className="h-[112px] bg-white px-3 py-2 text-center">
-        <h3 className="truncate text-base font-medium leading-5 text-black">{shortName}</h3>
+      <div className="h-[108px] bg-white px-2 py-2 text-center sm:h-[112px] sm:px-3">
+        <h3 className="truncate text-xs font-bold leading-5 text-black sm:text-base sm:font-medium">{shortName}</h3>
 
-        <div className="mt-1 flex h-8 items-center justify-center gap-2 text-left text-[11px] leading-[14px] text-neutral-600">
+        <div className="mt-1 flex h-8 items-center justify-center gap-1.5 text-left text-[10px] leading-[13px] text-neutral-600 sm:gap-2 sm:text-[11px] sm:leading-[14px]">
           <span
             className="h-2.5 w-2.5 shrink-0 rounded-full"
             style={{ backgroundColor: coach.transit.color }}
@@ -416,9 +532,10 @@ function CoachCard({ coach, onOpen }: { coach: Coach; onOpen: (coach: Coach) => 
         <button
           type="button"
           onClick={() => onOpen(coach)}
-          className="mt-1.5 w-full cursor-pointer rounded-[6px] bg-[var(--color-brand-bg)] px-3 py-1.5 text-sm font-medium text-[var(--color-brand-blue)] transition-colors hover:bg-[var(--color-brand-blue)] hover:text-white"
+          className="mt-1.5 min-h-8 w-full cursor-pointer rounded-[6px] bg-[var(--color-brand-bg)] px-2 py-1 text-xs font-bold text-[var(--color-brand-blue)] transition-colors hover:bg-[var(--color-brand-blue)] hover:text-white sm:px-3 sm:py-1.5 sm:text-sm sm:font-medium"
         >
-          Открыть информацию
+          <span className="sm:hidden">Подробнее</span>
+          <span className="hidden sm:inline">Открыть информацию</span>
         </button>
       </div>
     </article>
@@ -429,16 +546,16 @@ type CoachPanel = "coaching" | "sport" | "personal" | "schedule";
 
 function InfoList({ title, icon, items }: { title: string; icon: ReactNode; items: string[] }) {
   return (
-    <div>
-      <h4 className="flex items-center gap-2 text-2xl font-bold leading-tight text-black">
+    <div className="h-full overflow-hidden">
+      <h4 className="flex items-center gap-1.5 text-base font-bold leading-tight text-black sm:gap-2 sm:text-xl lg:text-2xl">
         {icon}
         {title}
       </h4>
 
-      <ul className="mt-4 space-y-2 text-base leading-5 text-neutral-800">
+      <ul className="mt-2 grid grid-cols-1 gap-y-1.5 text-xs leading-4 text-neutral-800 sm:text-sm sm:leading-[18px] lg:mt-4 lg:gap-y-2 lg:text-base lg:leading-5">
         {items.map((item) => (
-          <li key={item} className="flex gap-3">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-brand-red)]" />
+          <li key={item} className="flex gap-2 lg:gap-3">
+            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-brand-red)] lg:mt-2" />
             <span>{item}</span>
           </li>
         ))}
@@ -461,7 +578,7 @@ function PanelButton({
       type="button"
       onClick={onClick}
       className={[
-        "rounded-[6px] px-5 py-2 text-lg font-bold transition-colors",
+        "min-h-9 rounded-[6px] px-2 py-1.5 text-[11px] font-bold leading-tight sm:min-h-10 sm:px-4 sm:py-2 sm:text-sm lg:min-h-11 lg:px-5 lg:text-lg",
         isActive
           ? "bg-[var(--color-brand-red)] text-white"
           : "bg-[var(--color-brand-bg)] text-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)] hover:text-white",
@@ -474,23 +591,26 @@ function PanelButton({
 
 function ScheduleTable({ rows, compact = false }: { rows: ScheduleRow[]; compact?: boolean }) {
   const hasGroups = rows.some((row) => Boolean(row.group));
+  const desktopTextClass = compact
+    ? "lg:text-xs lg:leading-[1.05]"
+    : "lg:text-sm lg:leading-tight";
 
   return (
     <div className="overflow-hidden rounded-[4px] border border-neutral-200">
-      <table className={`w-full table-fixed border-collapse bg-white text-left ${compact ? "text-xs leading-[1.05]" : "text-sm leading-tight"}`}>
+      <table className={`w-full table-fixed border-collapse bg-white text-left text-[9px] leading-[1.05] sm:text-[10px] ${desktopTextClass}`}>
         <thead className="bg-[var(--color-brand-bg)] text-black">
           <tr>
-            <th className={`w-[22%] border border-neutral-200 px-2 font-bold ${compact ? "py-0.5" : "py-2"}`}>День</th>
-            <th className={`${hasGroups ? "w-[28%] " : ""}border border-neutral-200 px-2 font-bold ${compact ? "py-0.5" : "py-2"}`}>Время</th>
-            {hasGroups ? <th className={`border border-neutral-200 px-2 font-bold ${compact ? "py-0.5" : "py-2"}`}>Группа / адрес</th> : null}
+            <th className="w-[22%] border border-neutral-200 px-1 py-0.5 font-bold lg:px-2">День</th>
+            <th className={`${hasGroups ? "w-[28%] " : ""}border border-neutral-200 px-1 py-0.5 font-bold lg:px-2`}>Время</th>
+            {hasGroups ? <th className="border border-neutral-200 px-1 py-0.5 font-bold lg:px-2">Группа / адрес</th> : null}
           </tr>
         </thead>
         <tbody>
           {rows.map((row, index) => (
             <tr key={`${row.day}-${row.time}-${index}`}>
-              <td className={`border border-neutral-200 px-2 align-top ${compact ? "py-px" : "py-1"}`}>{row.day}</td>
-              <td className={`border border-neutral-200 px-2 align-top ${compact ? "py-px" : "py-1"}`}>{row.time}</td>
-              {hasGroups ? <td className={`border border-neutral-200 px-2 align-top ${compact ? "py-px" : "py-1"}`}>{row.group}</td> : null}
+              <td className="border border-neutral-200 px-1 py-px align-top lg:px-2">{row.day}</td>
+              <td className="border border-neutral-200 px-1 py-px align-top lg:px-2">{row.time}</td>
+              {hasGroups ? <td className="border border-neutral-200 px-1 py-px align-top lg:px-2">{row.group}</td> : null}
             </tr>
           ))}
         </tbody>
@@ -499,10 +619,91 @@ function ScheduleTable({ rows, compact = false }: { rows: ScheduleRow[]; compact
   );
 }
 
+function CoachMaps({ halls, combineLocations = false }: { halls: Hall[]; combineLocations?: boolean }) {
+  const [activeHallIndex, setActiveHallIndex] = useState(0);
+  const layoutClass =
+    halls.length === 1
+      ? "lg:grid-cols-1"
+      : halls.length === 2
+        ? "lg:grid-cols-1 lg:grid-rows-2"
+        : "lg:grid-cols-2 lg:grid-rows-2";
+
+  if (combineLocations) {
+    return <LocalInteractiveMap location={halls[0]} locations={halls} />;
+  }
+
+  return (
+    <>
+      <div className="flex h-full min-h-0 flex-col lg:hidden">
+        {halls.length > 1 ? (
+          <div className="scrollbar-hidden mb-1.5 flex shrink-0 gap-1 overflow-x-auto">
+            {halls.map((hall, index) => (
+              <button
+                key={`${hall.point.lat}-${hall.point.lon}-tab`}
+                type="button"
+                onClick={() => setActiveHallIndex(index)}
+                className={[
+                  "min-h-8 min-w-[calc(50%_-_2px)] shrink-0 truncate rounded-[4px] px-2 text-[10px] font-bold",
+                  index === activeHallIndex
+                    ? "bg-[var(--color-brand-blue)] text-white"
+                    : "bg-white text-[var(--color-brand-blue)]",
+                ].join(" ")}
+              >
+                {hall.address}
+              </button>
+            ))}
+          </div>
+        ) : null}
+
+        <div className="min-h-0 flex-1">
+          <LocalInteractiveMap
+            key={`${halls[activeHallIndex].point.lat}-${halls[activeHallIndex].point.lon}`}
+            location={halls[activeHallIndex]}
+            compact={halls.length > 1}
+          />
+        </div>
+      </div>
+
+      <div className={`hidden h-full gap-2 lg:grid ${layoutClass}`}>
+        {halls.map((hall) => (
+          <div key={`${hall.point.lat}-${hall.point.lon}`} className="min-h-0">
+            <LocalInteractiveMap location={hall} compact={halls.length > 1} />
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
 function CoachModal({ coach, onClose }: { coach: Coach; onClose: () => void }) {
   const [activePanel, setActivePanel] = useState<CoachPanel | null>(null);
   const halls = [coach.hall, ...(coach.additionalHalls ?? [])];
   const modalPhoto = coach.modalPhoto ?? coach.photo;
+  const achievementButtonCount = [
+    coach.coachingAchievements,
+    coach.sportAchievements,
+    coach.personalAchievements,
+  ].filter((items) => items.length > 0).length;
+  const panelButtonCount = achievementButtonCount + 1;
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
 
   function togglePanel(panel: CoachPanel) {
     setActivePanel((currentPanel) => (currentPanel === panel ? null : panel));
@@ -512,15 +713,15 @@ function CoachModal({ coach, onClose }: { coach: Coach; onClose: () => void }) {
     if (activePanel === "schedule") {
       return (
         <div className="h-full">
-          <h4 className="mb-2 flex items-center gap-2 text-xl font-bold leading-tight text-black">
-            <MapPin size={21} className="text-[var(--color-brand-blue)]" />
+          <h4 className="mb-1.5 flex items-center gap-1.5 text-sm font-bold leading-tight text-black sm:text-base lg:mb-2 lg:gap-2 lg:text-xl">
+            <MapPin size={18} className="text-[var(--color-brand-blue)] lg:h-[21px] lg:w-[21px]" />
             Расписание
           </h4>
-          <div className={coach.schedules.length > 1 ? "space-y-2" : ""}>
+          <div className={coach.schedules.length > 1 ? "space-y-1.5 lg:space-y-2" : ""}>
             {coach.schedules.map((schedule, index) => (
               <section key={`${schedule.title ?? "schedule"}-${index}`}>
                 {schedule.title ? (
-                  <h5 className="mb-1 text-xs font-bold leading-tight text-[var(--color-brand-blue)]">{schedule.title}</h5>
+                  <h5 className="mb-0.5 text-[10px] font-bold leading-tight text-[var(--color-brand-blue)] lg:mb-1 lg:text-xs">{schedule.title}</h5>
                 ) : null}
                 <ScheduleTable rows={schedule.rows} compact={coach.schedules.length > 1} />
               </section>
@@ -560,83 +761,78 @@ function CoachModal({ coach, onClose }: { coach: Coach; onClose: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/65 px-5 py-8">
-      <div className="relative h-[740px] w-full max-w-[1320px]">
+    <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/70 p-0 sm:p-5 lg:p-8">
+      <div className="relative h-full w-full max-w-[1320px] sm:h-[calc(100dvh-40px)] lg:h-[min(740px,calc(100dvh-64px))]">
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-5 top-5 z-30 flex h-10 w-10 items-center justify-center rounded-[4px] bg-white/90 text-black transition-colors hover:bg-[var(--color-brand-bg)]"
+          className="absolute right-3 top-3 z-40 flex h-11 w-11 items-center justify-center rounded-[4px] bg-white text-black shadow-md transition-colors hover:bg-[var(--color-brand-bg)] sm:right-5 sm:top-5"
           aria-label="Закрыть окно тренера"
         >
           <X size={28} />
         </button>
 
-        <article className="relative h-full overflow-hidden rounded-[4px] bg-white shadow-2xl">
-        <div className="grid h-full rounded-[4px] bg-white grid-cols-1 lg:grid-cols-[1fr_440px]">
-          <div className="p-6 lg:p-7">
-            <p className="text-base font-medium uppercase leading-none tracking-[0.12em] text-[var(--color-brand-blue)]">Тренер клуба</p>
+        <article className="relative h-full overflow-hidden bg-white shadow-2xl sm:rounded-[4px]">
+          <div className="grid h-full grid-cols-1 bg-white lg:grid-cols-[1fr_440px]">
+            <div className="coach-modal-body flex h-full min-h-0 min-w-0 flex-col px-3 pb-3 pt-14 sm:p-5 lg:p-7">
+              <div className="shrink-0">
+                <p className="coach-modal-eyebrow hidden text-sm font-medium uppercase leading-none tracking-[0.12em] text-[var(--color-brand-blue)] sm:block sm:text-base">Тренер клуба</p>
 
-            <h3 className="mt-2 text-4xl font-bold uppercase leading-none text-black">{coach.name}</h3>
+                <h3 className="pr-10 text-xl font-bold uppercase leading-tight text-black sm:mt-2 sm:pr-12 sm:text-2xl lg:text-4xl lg:leading-none">{coach.name}</h3>
 
-            <div className="mt-3 flex flex-wrap gap-2 text-sm font-medium">
-              <span className="bg-[var(--color-brand-bg)] px-3 py-1.5 text-[var(--color-brand-blue)]">{coach.role}</span>
-              <span className="bg-[var(--color-brand-bg)] px-3 py-1.5 text-[var(--color-brand-red)]">{coach.rank}</span>
-            </div>
+                <div className="mt-1.5 flex flex-wrap gap-1.5 text-[10px] font-medium sm:mt-3 sm:gap-2 sm:text-xs lg:text-sm">
+                  <span className="coach-modal-role hidden bg-[var(--color-brand-bg)] px-3 py-1.5 leading-5 text-[var(--color-brand-blue)] sm:inline">{coach.role}</span>
+                  <span className="bg-[var(--color-brand-bg)] px-2 py-1 leading-4 text-[var(--color-brand-red)] sm:px-3 sm:py-1.5 sm:leading-5">{coach.rank}</span>
+                </div>
 
-            <p className="mt-3 max-w-[760px] text-base leading-5 text-neutral-800">{coach.about}</p>
+                <p className="coach-modal-about mt-1.5 line-clamp-2 max-w-[760px] text-[10px] leading-[14px] text-neutral-800 sm:mt-3 sm:text-sm sm:leading-5 lg:text-base">{coach.about}</p>
+              </div>
 
-            <div className="mt-5 grid grid-cols-2 gap-3">
-              {coach.coachingAchievements.length > 0 ? <PanelButton label="Тренерские достижения" isActive={activePanel === "coaching"} onClick={() => togglePanel("coaching")} /> : null}
-              {coach.sportAchievements.length > 0 ? <PanelButton label="Спортивные достижения" isActive={activePanel === "sport"} onClick={() => togglePanel("sport")} /> : null}
-              {coach.personalAchievements.length > 0 ? <PanelButton label="Личные достижения" isActive={activePanel === "personal"} onClick={() => togglePanel("personal")} /> : null}
-              <div className={coach.id === 1 ? "[&>button]:w-full" : "col-span-2 [&>button]:w-full"}>
-                <PanelButton label="Расписание" isActive={activePanel === "schedule"} onClick={() => togglePanel("schedule")} />
+              <div className="mt-2 grid shrink-0 grid-cols-2 gap-1.5 sm:mt-4 sm:gap-2 lg:mt-5 lg:gap-3">
+                {coach.coachingAchievements.length > 0 ? <PanelButton label="Тренерские достижения" isActive={activePanel === "coaching"} onClick={() => togglePanel("coaching")} /> : null}
+                {coach.sportAchievements.length > 0 ? <PanelButton label="Спортивные достижения" isActive={activePanel === "sport"} onClick={() => togglePanel("sport")} /> : null}
+                {coach.personalAchievements.length > 0 ? <PanelButton label="Личные достижения" isActive={activePanel === "personal"} onClick={() => togglePanel("personal")} /> : null}
+                <div
+                  className={[
+                    panelButtonCount === 3 ? "col-span-2" : "",
+                    "[&>button]:h-full [&>button]:w-full",
+                  ].join(" ")}
+                >
+                  <PanelButton label="Расписание" isActive={activePanel === "schedule"} onClick={() => togglePanel("schedule")} />
+                </div>
+              </div>
+
+              <div className="relative mt-2 min-h-0 flex-1 rounded-[4px] border border-neutral-200 bg-[var(--color-brand-bg)] p-1.5 sm:mt-3 sm:p-2 lg:mt-4 lg:h-[420px] lg:flex-none">
+                <div
+                  className={[
+                    "h-full",
+                    activePanel ? "pointer-events-none invisible" : "visible",
+                  ].join(" ")}
+                >
+                  <CoachMaps halls={halls} combineLocations={coach.id === 6} />
+                </div>
+
+                {activePanel ? (
+                  <div
+                    className={[
+                      "absolute inset-1.5 overflow-hidden rounded-[4px] bg-white sm:inset-2",
+                      activePanel === "schedule" ? "p-1.5 sm:p-2 lg:p-3" : "p-2 sm:p-3 lg:p-5",
+                    ].join(" ")}
+                  >
+                    {renderActivePanel()}
+                  </div>
+                ) : null}
               </div>
             </div>
 
-            <div className="relative mt-4 h-[420px] rounded-[4px] border border-neutral-200 bg-[var(--color-brand-bg)] p-2">
-              {activePanel ? (
-                <div className={activePanel === "schedule" ? "h-full overflow-hidden rounded-[4px] bg-white p-3" : "h-full overflow-y-auto rounded-[4px] bg-white p-6"}>
-                  {renderActivePanel()}
-                </div>
-              ) : (
-                <>
-                  <div className={`grid h-full overflow-hidden rounded-[4px] ${halls.length > 1 ? "grid-rows-2 gap-2" : "grid-rows-1"}`}>
-                    {halls.map((hall) => (
-                      <div
-                        key={hall.mapQuery}
-                        className="flex min-h-0 items-center rounded-[4px] border border-neutral-200 bg-[linear-gradient(135deg,#f8fafc_0%,#eef3f9_100%)] p-5"
-                      >
-                        <div className="rounded-[4px] bg-white px-4 py-3 text-sm leading-5 text-neutral-800 shadow-sm">
-                          <p className="font-bold text-black">{hall.name}</p>
-                          <p>{hall.address}</p>
-                          <a
-                            href={`https://yandex.ru/maps/?text=${encodeURIComponent(hall.mapQuery)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-1 inline-flex items-center gap-1.5 font-bold text-[var(--color-brand-blue)] transition-colors hover:text-[#245ba8]"
-                          >
-                            Открыть в Яндекс Картах
-                            <ExternalLink size={15} strokeWidth={2.3} />
-                          </a>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
+            <div className="relative hidden min-h-[520px] bg-white lg:block" />
           </div>
-
-          <div className="relative min-h-[520px] bg-white" />
-        </div>
-
         </article>
 
         <img
           src={modalPhoto}
           alt={coach.name}
-          className="pointer-events-none absolute bottom-0 right-[-52px] z-20 h-[108%] w-[520px] max-w-none object-contain object-bottom"
+          className="pointer-events-none absolute bottom-0 right-[-52px] z-20 hidden h-[108%] w-[520px] max-w-none object-contain object-bottom lg:block"
         />
       </div>
     </div>
@@ -645,42 +841,34 @@ function CoachModal({ coach, onClose }: { coach: Coach; onClose: () => void }) {
 
 export function Coaches() {
   const [selectedCoach, setSelectedCoach] = useState<Coach | null>(null);
-  const topCoaches = coaches.slice(0, 3);
-  const bottomCoaches = coaches.slice(3);
 
   return (
-    <section id="coaches" className="bg-white py-20">
+    <section id="coaches" className="bg-white py-14 sm:py-20">
       <div className="site-container">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[repeat(5,240px)] lg:justify-between">
-          <div className="flex flex-col justify-between lg:col-span-2">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-[repeat(5,240px)] lg:justify-between">
+          <div className="col-span-2 flex flex-col justify-between pb-3 lg:pb-0">
             <div>
-              <p className="text-lg font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">Команда клуба</p>
-              <h2 className="mt-3 text-5xl font-bold uppercase leading-none text-black">Наши тренеры</h2>
-              <p className="mt-5 max-w-[430px] text-xl leading-7 text-neutral-800">
-                Тренеры клуба «Багратион» - действующие спортсмены и наставники, которые помогают развивать технику, дисциплину и уверенность.
+              <p className="text-sm font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)] sm:text-lg">Команда клуба</p>
+              <h2 className="mt-2 text-3xl font-bold uppercase leading-none text-black sm:mt-3 sm:text-5xl">Наши тренеры</h2>
+              <p className="mt-4 max-w-[520px] text-lg font-light leading-7 text-neutral-800 sm:mt-5 sm:text-[22px] sm:leading-8">
+                Тренеры клуба работают с детьми и взрослыми разного уровня подготовки. На занятиях помогают освоить базовую технику, развить физическую форму и подготовиться к аттестациям и соревнованиям.
               </p>
             </div>
 
-            <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-7 sm:gap-6 lg:grid-cols-[240px_240px] lg:justify-between lg:gap-0">
               <div className="border-l-4 border-[var(--color-brand-red)] bg-[var(--color-brand-bg)] px-4 py-3">
-                <div className="text-3xl font-bold leading-none text-black">8</div>
-                <div className="mt-1 text-base leading-tight text-neutral-700">тренеров</div>
+                <div className="text-2xl font-bold leading-none text-black sm:text-3xl">11</div>
+                <div className="mt-1 text-sm leading-tight text-neutral-700 sm:text-base">залов</div>
               </div>
 
               <div className="border-l-4 border-[var(--color-brand-blue)] bg-[var(--color-brand-bg)] px-4 py-3">
-                <div className="text-3xl font-bold leading-none text-black">10+</div>
-                <div className="mt-1 text-base leading-tight text-neutral-700">лет опыта</div>
+                <div className="text-2xl font-bold leading-none text-black sm:text-3xl">10+</div>
+                <div className="mt-1 text-sm leading-tight text-neutral-700 sm:text-base">лет опыта</div>
               </div>
             </div>
           </div>
 
-          {topCoaches.map((coach) => (
-            <CoachCard key={coach.id} coach={coach} onOpen={setSelectedCoach} />
-          ))}
-        </div>
-
-        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-[repeat(5,240px)] lg:justify-between">
-          {bottomCoaches.map((coach) => (
+          {coaches.map((coach) => (
             <CoachCard key={coach.id} coach={coach} onOpen={setSelectedCoach} />
           ))}
         </div>

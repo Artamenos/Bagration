@@ -19,9 +19,9 @@ export default function Home() {
         <About />
         <Coaches />
         <StudentOpportunities />
-        <ContactCall />
         <Events />
         <Albums />
+        <ContactCall />
       </main>
       <Footer />
     </>

@@ -92,13 +92,13 @@ function OpportunityVisual({
   return (
     <div
       className={[
-        "relative flex h-[240px] w-full items-center justify-center md:h-full",
+        "relative flex h-[160px] w-full items-center justify-center sm:h-[200px] md:h-full",
         hasBackground ? "bg-[var(--color-brand-bg)]" : "bg-white",
       ].join(" ")}
     >
       <span
         className={[
-          "absolute top-5 text-6xl font-bold leading-none opacity-10",
+          "absolute top-4 text-5xl font-bold leading-none opacity-10 sm:top-5 sm:text-6xl",
           number % 2 === 0 ? "text-[var(--color-brand-red)]" : "text-[var(--color-brand-blue)]",
           number % 2 === 0 ? "right-5" : "left-5",
         ].join(" ")}
@@ -107,7 +107,7 @@ function OpportunityVisual({
       </span>
 
       <Icon
-        size={98}
+        size={82}
         strokeWidth={1.8}
         className={[
           "relative z-10",
@@ -121,17 +121,25 @@ function OpportunityVisual({
 
 export function StudentOpportunities() {
   return (
-    <section className="bg-white py-20">
-      <div className="site-container grid grid-cols-1 gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-        <div className="grid grid-cols-1 gap-6">
+    <section className="bg-white py-14 sm:py-20">
+      <div className="site-container grid grid-cols-1 gap-12 sm:gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+        <div className="order-2 grid grid-cols-1 gap-6 lg:order-1">
           {opportunities.map((item, index) => {
             const hasBackground = index % 2 === 0;
 
             return (
-            <article
+            <div
               key={item.title}
               className={[
-                "grid h-auto overflow-hidden rounded-[4px] md:h-[240px]",
+                "relative",
+                hasBackground
+                  ? "before:pointer-events-none before:absolute before:inset-y-0 before:left-1/2 before:w-screen before:-translate-x-1/2 before:bg-[var(--color-brand-bg)] before:content-[''] md:before:hidden"
+                  : "",
+              ].join(" ")}
+            >
+            <article
+              className={[
+                "relative grid h-auto overflow-hidden rounded-[4px] md:h-[240px]",
                 item.imageFirst
                   ? "md:grid-cols-[0.72fr_1.28fr]"
                   : "md:grid-cols-[1.28fr_0.72fr]",
@@ -144,44 +152,45 @@ export function StudentOpportunities() {
 
               <div
                 className={[
-                  "relative flex min-h-[240px] flex-col justify-center py-7 pl-7 pr-9",
+                  "relative flex min-h-0 flex-col justify-center px-5 py-7 sm:min-h-[220px] sm:pl-7 sm:pr-9 md:min-h-[240px]",
                   item.imageFirst ? "md:order-2" : "md:order-1",
                 ].join(" ")}
               >
                 <span
                   className={[
-                    "absolute left-7 top-1/2 h-[86px] w-[4px] -translate-y-1/2",
+                    "absolute left-5 top-1/2 h-[72px] w-[4px] -translate-y-1/2 sm:left-7 sm:h-[86px]",
                     (index + 1) % 2 === 0 ? "bg-[var(--color-brand-red)]" : "bg-[var(--color-brand-blue)]",
                   ].join(" ")}
                 />
 
-                <h3 className="pl-6 text-3xl font-bold leading-tight text-black">
+                <h3 className="pl-5 text-2xl font-bold leading-tight text-black sm:pl-6 sm:text-3xl">
                   {item.title}
                 </h3>
 
-                <p className="mt-3 max-w-none pl-8 text-lg leading-6 text-neutral-800">
+                <p className="mt-3 max-w-none pl-5 text-base leading-6 text-neutral-800 sm:pl-8 sm:text-lg">
                   {item.description}
                 </p>
               </div>
             </article>
+            </div>
             );
           })}
         </div>
 
-        <div className="h-fit lg:sticky lg:top-28 lg:self-start">
-          <p className="text-lg font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)]">
+        <div className="order-1 h-fit lg:order-2 lg:sticky lg:top-28 lg:self-start">
+          <p className="text-sm font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)] sm:text-lg">
             Обучение и развитие
           </p>
 
-          <h2 className="mt-3 text-5xl font-bold uppercase leading-none text-black">
+          <h2 className="mt-2 text-3xl font-bold uppercase leading-none text-black sm:mt-3 sm:text-5xl">
             Что получает ученик
           </h2>
 
-          <p className="mt-5 max-w-[560px] text-xl leading-7 text-neutral-800">
+          <p className="mt-4 max-w-[560px] text-base leading-6 text-neutral-800 sm:mt-5 sm:text-xl sm:leading-7">
             Клуб дает не только регулярные тренировки. У учеников есть среда, где можно привыкнуть к занятиям, укреплять базу, готовиться к аттестациям и участвовать в спортивной жизни клуба.
           </p>
 
-          <div className="mt-10 grid max-w-[560px] grid-cols-1 gap-5">
+          <div className="mt-10 hidden max-w-[560px] grid-cols-1 gap-5 lg:grid">
             {summaryItems.map((item, index) => (
               <article key={item.title} className="relative grid grid-cols-[42px_1fr] gap-5">
                 {index < summaryItems.length - 1 ? (

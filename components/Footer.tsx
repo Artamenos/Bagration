@@ -12,7 +12,7 @@ const footerNav = [
 export function Footer() {
   return (
     <footer className="bg-black text-white">
-      <div className="site-container grid gap-10 py-10 lg:grid-cols-[1.1fr_1fr_1fr]">
+      <div className="site-container grid gap-8 py-10 sm:gap-10 lg:grid-cols-[1.1fr_1fr_1fr]">
         <div>
           <a href="#hero" className="inline-flex items-center gap-4">
             <img
@@ -21,10 +21,10 @@ export function Footer() {
               className="h-16 w-16 rounded-full object-contain"
             />
 
-            <span className="text-3xl font-bold tracking-wide">Багратион</span>
+            <span className="text-2xl font-bold tracking-wide sm:text-3xl">Багратион</span>
           </a>
 
-          <p className="mt-5 max-w-[360px] text-lg leading-6 text-white/70">
+          <p className="mt-4 max-w-[360px] text-base leading-6 text-white/70 sm:mt-5 sm:text-lg">
             Спортивный клуб карате киокушин для детей и взрослых в Москве и Московской области.
           </p>
         </div>
@@ -45,7 +45,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div>
+        <div className="hidden md:block">
           <h2 className="text-xl font-bold uppercase tracking-[0.08em]">Навигация</h2>
 
           <nav className="mt-5 grid grid-cols-2 gap-x-8 gap-y-3 text-lg text-white/80">
