@@ -1,0 +1,88 @@
+name: Prepare production deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Commit, tag or branch to deploy"
+        required: true
+        default: "master"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    name: Build and publish production branch
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out selected version
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check TypeScript
+        run: npx tsc --noEmit
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Build production export
+        run: npm run build:production
+
+      - name: Verify deployment files
+        shell: bash
+        run: |
+          test -f out/index.html
+          test -f out/.htaccess
+          test -f out/robots.txt
+          test -f out/sitemap.xml
+
+      - name: Publish static export to production branch
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          source_sha="$(git rev-parse HEAD)"
+          deploy_dir="$RUNNER_TEMP/bagration-production"
+          mkdir -p "$deploy_dir"
+          cp -a out/. "$deploy_dir/"
+
+          cd "$deploy_dir"
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          if git ls-remote --exit-code --heads origin production >/dev/null 2>&1; then
+            git fetch --depth=1 origin production
+            git reset --soft FETCH_HEAD
+          else
+            git checkout --orphan production
+          fi
+
+          git add --all
+
+          if git diff --cached --quiet; then
+            echo "Production files have not changed."
+            exit 0
+          fi
+
+          git commit -m "deploy: ${source_sha}"
+          git push origin HEAD:production
