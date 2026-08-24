@@ -9,8 +9,9 @@ const oswald = Oswald({
 
 const allowIndexing = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sc-bagration.ru";
-const title = "Багратион — клуб карате киокушин";
-const description = "Карате киокушин для детей и взрослых в Москве и Московской области.";
+const title = "Багратион";
+const description =
+  "Спортивный клуб «Багратион» — карате киокушин для детей и взрослых в Москве и Московской области. Тренеры, залы, расписание и мероприятия.";
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "SportsActivityLocation",

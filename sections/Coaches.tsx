@@ -532,7 +532,7 @@ function CoachCard({ coach, onOpen }: { coach: Coach; onOpen: (coach: Coach) => 
   return (
     <article
       id={coach.id === 8 ? "coach-rustam" : undefined}
-      className="w-full min-w-0 self-start scroll-mt-6 overflow-hidden rounded-[4px] border border-neutral-200 bg-white shadow-sm lg:w-[240px]"
+      className="w-full min-w-0 self-start scroll-mt-6 overflow-hidden rounded-[4px] border border-neutral-200 bg-white shadow-sm lg:w-full min-[1360px]:w-[240px]"
     >
       <div
         className="relative aspect-[240/295] overflow-hidden bg-[var(--color-brand-bg)] bg-top bg-no-repeat"
@@ -961,7 +961,7 @@ export function Coaches() {
   return (
     <section id="coaches" className="bg-white py-14 sm:py-20">
       <div className="site-container">
-        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-[repeat(5,240px)] lg:justify-between">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4 xl:grid-cols-5 min-[1360px]:grid-cols-[repeat(5,240px)] min-[1360px]:justify-between">
           <div className="col-span-2 flex flex-col pb-3 lg:pb-0">
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)] sm:text-lg">Команда клуба</p>
@@ -971,7 +971,7 @@ export function Coaches() {
               </p>
             </div>
 
-            <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 sm:mt-7 sm:gap-x-6 sm:gap-y-4 lg:grid-cols-[240px_240px] lg:justify-between lg:gap-x-0">
+            <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 sm:mt-7 sm:gap-x-6 sm:gap-y-4 lg:grid-cols-2 min-[1360px]:grid-cols-[240px_240px] min-[1360px]:justify-between min-[1360px]:gap-x-0">
               <div className="col-span-2 flex min-h-[58px] items-center gap-3 bg-[var(--color-brand-bg)] px-4 py-3 text-sm leading-tight text-neutral-800 sm:text-base">
                 <MapPin className="shrink-0 text-[var(--color-brand-blue)]" size={22} strokeWidth={2.2} />
                 <span>Центральный зал ул. Тимирязевская, д. 16</span>
