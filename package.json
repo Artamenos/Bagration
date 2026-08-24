@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:staging": "node scripts/build-static.mjs staging",
+    "build:production": "node scripts/build-static.mjs production",
     "preview": "node scripts/preview-static.mjs",
     "lint": "eslint"
   },

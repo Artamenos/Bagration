@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Timeweb virtual hosting serves static files and cannot keep a Next.js
-  // Node.js server running. `next build` will therefore create an `out`
-  // directory that can be uploaded directly to the test domain.
+  // Timeweb serves the exported files directly; no persistent Node.js process
+  // is required after the build finishes.
   output: "export",
   trailingSlash: true,
 };
