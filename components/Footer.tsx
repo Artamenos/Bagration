@@ -40,7 +40,7 @@ export function Footer() {
 
             <div className="flex items-start gap-3">
               <MapPin size={22} className="mt-0.5 shrink-0 text-[var(--color-brand-red)]" />
-              <span>Москва, ул. Тимирязевская, 16</span>
+              <span>Москва, ул. Тимирязевская, д. 16</span>
             </div>
           </div>
         </div>
@@ -61,7 +61,6 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="site-container flex flex-col gap-2 py-5 text-base text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <span>© 2026 Спортивный клуб «Багратион»</span>
-          <span>Пробное занятие - бесплатно</span>
         </div>
       </div>
     </footer>

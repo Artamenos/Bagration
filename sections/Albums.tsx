@@ -3,22 +3,33 @@ import { ArrowRight } from "lucide-react";
 const albumColumns = [
   {
     offset: "lg:-translate-y-[104px]",
-    tiles: ["h-[150px]", "h-[188px]", "h-[260px]"],
+    images: ["117.jpg", "112.jpg", "111.jpg"],
   },
   {
     offset: "lg:-translate-y-[72px]",
-    tiles: ["h-[150px]", "h-[188px]", "h-[260px]"],
+    images: ["113.jpg", "114.jpg", "1_2.png"],
   },
   {
     offset: "lg:-translate-y-[40px]",
-    tiles: ["h-[188px]", "h-[188px]", "h-[260px]"],
+    images: ["115.jpg", "116.jpg", "1_3.png"],
   },
+];
+
+const mobileAlbumImages = [
+  "117.jpg",
+  "113.jpg",
+  "115.jpg",
+  "112.jpg",
+  "114.jpg",
+  "116.jpg",
 ];
 
 export function Albums() {
   return (
-    <section id="albums" className="overflow-hidden bg-[var(--color-brand-bg)]">
-      <div className="site-container grid h-auto grid-cols-1 items-start gap-8 overflow-hidden py-12 sm:gap-12 lg:h-[504px] lg:grid-cols-[360px_1fr] lg:py-0">
+    <section id="albums" className="relative overflow-hidden bg-white py-14 sm:py-20">
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-14 top-14 bg-[var(--color-brand-bg)] sm:bottom-20 sm:top-20" />
+
+      <div className="site-container relative grid h-auto grid-cols-1 items-start gap-8 overflow-hidden sm:gap-12 lg:h-[504px] lg:grid-cols-[360px_1fr]">
         <div className="lg:py-12 lg:pr-4">
           <p className="text-sm font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)] sm:text-lg">
             Фотоархив клуба
@@ -41,7 +52,9 @@ export function Albums() {
           </div>
 
           <a
-            href="#events"
+            href="https://t.me/s/kyokushin_bagration"
+            target="_blank"
+            rel="noreferrer"
             className="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-[6px] bg-[var(--color-brand-blue)] px-6 text-base font-bold text-white transition-colors hover:bg-[#245ba8] sm:mt-8 sm:w-fit sm:text-lg"
           >
             Смотреть больше
@@ -49,19 +62,33 @@ export function Albums() {
           </a>
         </div>
 
-        <div className="h-[420px] overflow-hidden lg:h-full">
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:translate-y-10 lg:gap-6">
+        <div className="h-[410px] overflow-hidden md:hidden">
+          <div className="grid grid-cols-2 gap-2">
+            {mobileAlbumImages.map((imageName, index) => (
+              <div key={imageName} className="h-[130px] overflow-hidden rounded-[2px]">
+                <img
+                  src={`/images/${imageName}`}
+                  alt={`Фото с мероприятия клуба Багратион ${index + 1}`}
+                  className="block h-full w-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="hidden h-[420px] overflow-hidden md:block lg:h-full">
+          <div className="grid justify-end gap-4 md:grid-cols-[repeat(3,minmax(0,290px))] lg:translate-y-10">
             {albumColumns.map((column, columnIndex) => (
-              <div key={columnIndex} className={`grid gap-4 ${column.offset}`}>
-                {column.tiles.map((heightClass, imageIndex) => (
+              <div key={columnIndex} className={`grid content-start gap-3 ${column.offset}`}>
+                {column.images.map((imageName, imageIndex) => (
                   <div
-                    key={imageIndex}
-                    className={`overflow-hidden ${heightClass}`}
+                    key={imageName}
+                    className="h-[160px] overflow-hidden sm:h-[190px]"
                   >
                     <img
-                      src="/images/album.png"
-                      alt="Фото с мероприятия клуба Багратион"
-                      className="h-full w-full object-cover"
+                      src={`/images/${imageName}`}
+                      alt={`Фото с мероприятия клуба Багратион, ряд ${imageIndex + 1}, колонка ${columnIndex + 1}`}
+                      className="block h-full w-full object-cover"
                     />
                   </div>
                 ))}

@@ -4,9 +4,7 @@ import {
   CalendarDays,
   ChevronLeft,
   ChevronRight,
-  ExternalLink,
   MapPin,
-  X,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
@@ -14,12 +12,8 @@ type EventItem = {
   id: number;
   title: string;
   city: string;
-  description: string;
-  details: string;
-  image: string;
   startDate: string;
   endDate?: string;
-  detailsUrl?: string;
 };
 
 type CalendarDay = {
@@ -29,7 +23,134 @@ type CalendarDay = {
   isCurrentMonth: boolean;
 };
 
-const events: EventItem[] = [];
+const events: EventItem[] = [
+  {
+    id: 1,
+    title: "XIII Летняя Спартакиада учащихся России",
+    city: "Пермь",
+    startDate: "2026-08-27",
+    endDate: "2026-08-29",
+  },
+  {
+    id: 2,
+    title: "XVIII Всероссийские Юношеские Игры боевых искусств",
+    city: "Анапа",
+    startDate: "2026-09-13",
+    endDate: "2026-09-17",
+  },
+  {
+    id: 3,
+    title: "Всероссийские соревнования «Киокушин на Волге»",
+    city: "Самара",
+    startDate: "2026-09-24",
+    endDate: "2026-09-28",
+  },
+  {
+    id: 4,
+    title: "Всероссийские соревнования «Памяти Сергея Увицкого»",
+    city: "Москва",
+    startDate: "2026-10-22",
+    endDate: "2026-10-26",
+  },
+  {
+    id: 5,
+    title: "Чемпионат Дальневосточного ФО",
+    city: "Хабаровск",
+    startDate: "2026-11-06",
+    endDate: "2026-11-09",
+  },
+  {
+    id: 6,
+    title: "Первенство Дальневосточного ФО",
+    city: "Хабаровск",
+    startDate: "2026-11-06",
+    endDate: "2026-11-09",
+  },
+  {
+    id: 7,
+    title: "Чемпионат Приволжского ФО",
+    city: "Пермь",
+    startDate: "2026-11-13",
+    endDate: "2026-11-16",
+  },
+  {
+    id: 8,
+    title: "Первенство Приволжского ФО",
+    city: "Пермь",
+    startDate: "2026-11-13",
+    endDate: "2026-11-16",
+  },
+  {
+    id: 9,
+    title: "Чемпионат Уральского ФО",
+    city: "Екатеринбург",
+    startDate: "2026-11-13",
+    endDate: "2026-11-16",
+  },
+  {
+    id: 10,
+    title: "Первенство Уральского ФО",
+    city: "Екатеринбург",
+    startDate: "2026-11-13",
+    endDate: "2026-11-16",
+  },
+  {
+    id: 11,
+    title: "Чемпионат Северо-Кавказского ФО",
+    city: "Нальчик",
+    startDate: "2026-11-14",
+    endDate: "2026-11-16",
+  },
+  {
+    id: 12,
+    title: "Первенство Северо-Кавказского ФО",
+    city: "Нальчик",
+    startDate: "2026-11-14",
+    endDate: "2026-11-16",
+  },
+  {
+    id: 13,
+    title: "Чемпионат Сибирского ФО",
+    city: "Новосибирск",
+    startDate: "2026-11-14",
+    endDate: "2026-11-16",
+  },
+  {
+    id: 14,
+    title: "Первенство Сибирского ФО",
+    city: "Новосибирск",
+    startDate: "2026-11-14",
+    endDate: "2026-11-16",
+  },
+  {
+    id: 15,
+    title: "Чемпионат Южного ФО",
+    city: "пгт Энем",
+    startDate: "2026-11-20",
+    endDate: "2026-11-23",
+  },
+  {
+    id: 16,
+    title: "Первенство Южного ФО",
+    city: "пгт Энем",
+    startDate: "2026-11-20",
+    endDate: "2026-11-23",
+  },
+  {
+    id: 17,
+    title: "Чемпионат Центрального ФО",
+    city: "Москва",
+    startDate: "2026-11-28",
+    endDate: "2026-11-30",
+  },
+  {
+    id: 18,
+    title: "Первенство Центрального ФО",
+    city: "Москва",
+    startDate: "2026-11-28",
+    endDate: "2026-11-30",
+  },
+];
 
 const monthNames = [
   "Январь",
@@ -95,22 +216,21 @@ function getEventDateText(event: EventItem) {
 
   const end = event.endDate.split("-").reverse().join(".");
 
-  return `${start} - ${end}`;
+  return `${start} – ${end}`;
 }
 
 export function Events() {
   const [visibleMonth, setVisibleMonth] = useState(() => new Date());
   const [selectedDateKey, setSelectedDateKey] = useState<string | null>(null);
-  const [openedEvent, setOpenedEvent] = useState<EventItem | null>(null);
 
   const calendarDays = useMemo(
     () => getCalendarDays(visibleMonth),
     [visibleMonth],
   );
 
-  const selectedEvent = selectedDateKey
-    ? events.find((event) => isDateInsideEvent(selectedDateKey, event))
-    : undefined;
+  const selectedEvents = selectedDateKey
+    ? events.filter((event) => isDateInsideEvent(selectedDateKey, event))
+    : [];
 
   function changeMonth(direction: number) {
     setVisibleMonth((currentMonth) => {
@@ -122,7 +242,7 @@ export function Events() {
   }
 
   return (
-    <section id="events" className="bg-white py-14 sm:py-20 lg:py-28">
+    <section id="events" className="bg-white py-14 sm:py-20">
       <div className="site-container">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[520px_1fr] lg:items-stretch">
           <div className="rounded-[4px] bg-white p-3 shadow-sm sm:p-6">
@@ -210,53 +330,33 @@ export function Events() {
           </div>
 
           <article className="flex min-h-[360px] h-full flex-col overflow-hidden rounded-[4px] bg-white p-4 shadow-sm sm:min-h-[420px] sm:p-6">
-            {selectedEvent ? (
-              <>
-                <div className="flex items-center gap-2 text-lg font-medium text-[var(--color-brand-blue)]">
-                  <MapPin size={22} />
-                  {selectedEvent.city}
-                </div>
-
-                <img
-                  src={selectedEvent.image}
-                  alt={selectedEvent.title}
-                  className="mt-4 h-[190px] w-full rounded-[4px] object-cover"
-                />
-
-                <div className="mt-5 flex items-center gap-3 text-lg font-medium text-[var(--color-brand-red)]">
+            {selectedEvents.length > 0 ? (
+              <div className="flex h-full flex-col">
+                <div className="flex items-center gap-3 text-lg font-medium text-[var(--color-brand-red)]">
                   <CalendarDays size={22} />
-                  {getEventDateText(selectedEvent)}
+                  {selectedDateKey?.split("-").reverse().join(".")}
                 </div>
 
-                <h3 className="mt-3 text-2xl font-bold leading-tight text-black sm:text-4xl">
-                  {selectedEvent.title}
-                </h3>
-
-                <p className="mt-3 line-clamp-3 text-base leading-6 text-neutral-800 sm:text-xl sm:leading-7">
-                  {selectedEvent.description}
-                </p>
-
-                {selectedEvent.detailsUrl ? (
-                  <a
-                    href={selectedEvent.detailsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-auto inline-flex h-11 w-fit items-center justify-center gap-2 rounded-[4px] bg-[var(--color-brand-blue)] px-6 text-lg font-bold text-white transition-colors hover:bg-[#245ba8]"
-                  >
-                    Подробнее
-                    <ExternalLink size={20} strokeWidth={2.3} />
-                  </a>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => setOpenedEvent(selectedEvent)}
-                    className="mt-auto inline-flex h-11 w-fit items-center justify-center gap-2 rounded-[4px] bg-[var(--color-brand-blue)] px-6 text-lg font-bold text-white transition-colors hover:bg-[#245ba8]"
-                  >
-                    Подробнее
-                    <ExternalLink size={20} strokeWidth={2.3} />
-                  </button>
-                )}
-              </>
+                <div className="mt-4 grid gap-3 overflow-y-auto pr-1">
+                  {selectedEvents.map((event) => (
+                    <article
+                      key={event.id}
+                      className="w-full rounded-[4px] border border-neutral-200 bg-[var(--color-brand-bg)] p-4 text-left sm:p-5"
+                    >
+                      <span className="flex items-center gap-2 text-base font-medium text-[var(--color-brand-blue)] sm:text-lg">
+                        <MapPin size={20} />
+                        {event.city}
+                      </span>
+                      <span className="mt-2 block text-lg font-bold leading-tight text-black sm:text-2xl">
+                        {event.title}
+                      </span>
+                      <span className="mt-3 flex items-center gap-2 text-base font-bold text-[var(--color-brand-red)]">
+                        {getEventDateText(event)}
+                      </span>
+                    </article>
+                  ))}
+                </div>
+              </div>
             ) : (
               <div className="flex h-full flex-col items-center justify-center text-center">
                 <CalendarDays
@@ -280,43 +380,6 @@ export function Events() {
         </div>
       </div>
 
-      {openedEvent ? (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-3 sm:px-6">
-          <article className="relative max-h-[94dvh] w-full max-w-[760px] overflow-auto rounded-[4px] bg-white p-5 shadow-xl sm:max-h-[90vh] sm:p-8">
-            <button
-              type="button"
-              onClick={() => setOpenedEvent(null)}
-              className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-[4px] bg-white shadow-sm text-black transition-colors hover:bg-[var(--color-brand-bg)] sm:right-5 sm:top-5"
-              aria-label="Закрыть описание мероприятия"
-            >
-              <X size={26} />
-            </button>
-
-            <p className="pr-12 text-sm font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)] sm:text-lg">
-              {openedEvent.city}
-            </p>
-
-            <h3 className="mt-3 pr-12 text-2xl font-bold leading-tight text-black sm:text-4xl">
-              {openedEvent.title}
-            </h3>
-
-            <img
-              src={openedEvent.image}
-              alt={openedEvent.title}
-              className="mt-5 h-[190px] w-full rounded-[4px] object-cover sm:mt-6 sm:h-[320px]"
-            />
-
-            <div className="mt-6 flex items-center gap-3 text-lg font-medium text-[var(--color-brand-red)]">
-              <CalendarDays size={22} />
-              {getEventDateText(openedEvent)}
-            </div>
-
-            <p className="mt-4 text-base leading-6 text-neutral-800 sm:text-xl sm:leading-7">
-              {openedEvent.details}
-            </p>
-          </article>
-        </div>
-      ) : null}
     </section>
   );
 }

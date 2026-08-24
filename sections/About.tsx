@@ -1,3 +1,5 @@
+import { Medal, TentTree, Trophy } from "lucide-react";
+
 export function About() {
   return (
     <section id="about" className="bg-[var(--color-brand-bg)] py-14 sm:py-20">
@@ -16,25 +18,24 @@ export function About() {
           </h2>
 
           <p className="mt-4 text-base font-light leading-6 text-neutral-800 sm:mt-5 sm:text-2xl sm:leading-[1.28]">
-            Клуб «Багратион» — спортивный клуб карате киокушин. Мы развиваем
+            «Багратион» — клуб карате киокушин для детей и взрослых. Мы развиваем
             техническую подготовку, физическую форму и дисциплину, формируя
-            устойчивые навыки и уверенность в себе. Занятия проводятся для
-            детей и взрослых с распределением по возрасту и уровню. Подготовка
-            включает базовую технику, ОФП, работу в паре, а также подготовку к
-            аттестациям и соревнованиям.
+            устойчивые навыки и уверенность в себе. Ученики занимаются в группах
+            с учетом возраста и уровня подготовки. Программа включает базовую
+            технику, ОФП, работу в паре, подготовку к аттестациям и соревнованиям.
           </p>
 
-          <ul className="mt-6 space-y-3 text-center text-base font-light leading-6 text-neutral-800 sm:mt-8 sm:text-xl sm:leading-7 lg:text-left">
-            <li className="flex items-center justify-center gap-3 lg:justify-start lg:gap-4">
-              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-brand-red)]" />
+          <ul className="mx-auto mt-6 max-w-[390px] space-y-3 px-3 text-left text-base font-light leading-6 text-neutral-800 sm:mt-8 sm:max-w-none sm:px-0 sm:text-xl sm:leading-7 lg:mx-0">
+            <li className="grid grid-cols-[24px_minmax(0,1fr)] items-start gap-3 lg:gap-4">
+              <Trophy className="mt-0.5 h-6 w-6 text-[var(--color-brand-red)]" strokeWidth={2.1} />
               <span>Участие в турнирах — от региональных до чемпионата России</span>
             </li>
-            <li className="flex items-center justify-center gap-3 lg:justify-start lg:gap-4">
-              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-brand-red)]" />
+            <li className="grid grid-cols-[24px_minmax(0,1fr)] items-start gap-3 lg:gap-4">
+              <Medal className="mt-0.5 h-6 w-6 text-[var(--color-brand-blue)]" strokeWidth={2.1} />
               <span>Присвоение спортивных разрядов и мастерских степеней</span>
             </li>
-            <li className="flex items-center justify-center gap-3 lg:justify-start lg:gap-4">
-              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-brand-red)]" />
+            <li className="grid grid-cols-[24px_minmax(0,1fr)] items-start gap-3 lg:gap-4">
+              <TentTree className="mt-0.5 h-6 w-6 text-[var(--color-brand-red)]" strokeWidth={2.1} />
               <span>Летние учебно-тренировочные сборы</span>
             </li>
           </ul>

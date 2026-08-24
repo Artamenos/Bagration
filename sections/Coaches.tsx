@@ -117,7 +117,10 @@ const coaches: Coach[] = [
       "Чемпион Московской области 2007 (ИКО)",
     ],
     coachingAchievements: [
-      "Воспитал победителей первенств Москвы и Московской области 2012–2019 (КАН, ШИН, ИКО, ИФК)",
+      "Воспитал победителя чемпионата Японии (Накамура) 2026",
+      "Воспитал победителей первенств Москвы и Московской области 2024–2026 (ФКР)",
+      "Воспитал победителей и призеров всероссийских соревнований 2024–2026 (ФКР)",
+      "Воспитал победителей первенств Москвы и Московской области 2012–2026 (КАН, ШИН, ИКО, ИФК)",
       "Воспитал победителей первенств ЦФО 2014–2017 (Мацушима, КАН, ШИН)",
       "Воспитал победителя и призёра первенства России 2014, 2016 (КАН, ШИН)",
       "Воспитал победителей первенства России 2018 (Ико-Мацушима)",
@@ -190,15 +193,18 @@ const coaches: Coach[] = [
       },
     ],
     sportAchievements: [
+      "Серебряный призер чемпионата Японии (Накамура) 2026",
       "Победитель чемпионата ЦФО (ката-группа)",
       "Серебряный призёр Кубка мира",
       "Бронзовый призёр чемпионата Европы",
       "Бронзовый призёр Кубка столицы",
     ],
     coachingAchievements: [
-      "Воспитал победителей первенств Москвы 2021–2023",
-      "Воспитал победителей первенств Московской области 2020–2023",
-      "Воспитал победителей и призёров всероссийских соревнований 2022–2023",
+      "Воспитал победителей первенств Москвы и Московской области 2024–2026 (ФКР)",
+      "Воспитал победителей и призеров всероссийских соревнований 2024–2026 (ФКР)",
+      "Воспитал победителей первенств Москвы 2021–2026",
+      "Воспитал победителей первенств Московской области 2020–2026",
+      "Воспитал победителей и призёров всероссийских соревнований 2022–2026",
     ],
     personalAchievements: [],
   },
@@ -239,9 +245,10 @@ const coaches: Coach[] = [
       "Серебряный призёр чемпионата Европы 2022",
     ],
     coachingAchievements: [
-      "Воспитал призёров первенств Москвы 2021–2023",
-      "Воспитал призёров первенств Московской области 2020–2023",
-      "Воспитал призёров всероссийских соревнований 2022–2023",
+      "Воспитал победителей первенств Москвы и Московской области 2024–2026 (ФКР)",
+      "Воспитал призёров первенств Москвы 2021–2026",
+      "Воспитал призёров первенств Московской области 2020–2026",
+      "Воспитал призёров всероссийских соревнований 2022–2026",
     ],
     personalAchievements: [],
   },
@@ -251,6 +258,7 @@ const coaches: Coach[] = [
     role: "Тренер-преподаватель Московской областной федерации киокушин",
     rank: "I дан, МСМК",
     photo: "/images/Andrei_vin.png",
+    modalPhoto: "/images/Andrei_kick.png",
     about:
       "Мастер спорта международного класса по карате киокушинкай. Более десяти лет работает детским тренером.",
     cardAddress: "ул. Расплетина, 1",
@@ -266,11 +274,19 @@ const coaches: Coach[] = [
     schedules: [
       {
         rows: [
-          { day: "Понедельник", time: "17:00–18:00, 18:00–19:00, 19:00–20:00" },
-          { day: "Вторник", time: "18:00–19:00, 19:00–20:00" },
-          { day: "Среда", time: "17:00–18:00, 18:00–19:00, 19:00–20:00" },
-          { day: "Четверг", time: "18:00–19:00, 19:00–20:00" },
-          { day: "Пятница", time: "17:00–18:00, 18:00–19:00, 19:00–20:00" },
+          { day: "Понедельник", time: "17:00–18:00" },
+          { day: "", time: "18:00–19:00" },
+          { day: "", time: "19:00–20:00" },
+          { day: "Вторник", time: "18:00–19:00" },
+          { day: "", time: "19:00–20:00" },
+          { day: "Среда", time: "17:00–18:00" },
+          { day: "", time: "18:00–19:00" },
+          { day: "", time: "19:00–20:00" },
+          { day: "Четверг", time: "18:00–19:00" },
+          { day: "", time: "19:00–20:00" },
+          { day: "Пятница", time: "17:00–18:00" },
+          { day: "", time: "18:00–19:00" },
+          { day: "", time: "19:00–20:00" },
         ],
       },
     ],
@@ -309,14 +325,17 @@ const coaches: Coach[] = [
     schedules: [
       {
         rows: [
-          { day: "Понедельник", time: "15:00–16:00, 16:00–18:00" },
-          { day: "Среда", time: "15:00–16:00, 16:00–18:00" },
+          { day: "Понедельник", time: "15:00–16:00" },
+          { day: "", time: "16:00–18:00" },
+          { day: "Среда", time: "15:00–16:00" },
+          { day: "", time: "16:00–18:00" },
           { day: "Пятница", time: "16:00–18:00" },
         ],
       },
     ],
     sportAchievements: ["Призёр Кубка Содружества"],
     coachingAchievements: [
+      "Воспитал победителей первенств Москвы и Московской области 2024–2026 (ФКР)",
       "Воспитала призёров первенств Москвы 2021–2023",
       "Воспитала призёров первенств Московской области 2020–2023",
       "Воспитала призёров всероссийских соревнований 2022–2023",
@@ -329,6 +348,7 @@ const coaches: Coach[] = [
     role: "Тренер-преподаватель Московской областной федерации киокушин",
     rank: "6 кю",
     photo: "/images/Anastasia_vin.png",
+    modalPhoto: "/images/Anastasia_kick.png",
     about:
       "Педагог по физической культуре и спорту. Проводит занятия для младших и старших групп в Апрелевке и Изварино.",
     cardAddress: "Апрелевка, ул. Августовская, 14",
@@ -371,15 +391,15 @@ const coaches: Coach[] = [
       {
         title: "Апрелевка",
         rows: [
-          { day: "Пн", time: "16:00–16:30", group: "Жасминовая, 9 — 4+" },
+          { day: "Понедельник", time: "16:00–16:30", group: "Жасминовая, 9 — 4+" },
           { day: "", time: "17:30–18:00", group: "Парковая, 8/3 — 4+" },
           { day: "", time: "18:00–19:00", group: "Августовская, 14 — младшая 4+" },
           { day: "", time: "18:00–19:00", group: "Августовская, 14 — старшая 7+" },
-          { day: "Ср", time: "16:00–16:30", group: "Жасминовая, 9 — 4+" },
+          { day: "Среда", time: "16:00–16:30", group: "Жасминовая, 9 — 4+" },
           { day: "", time: "17:30–18:00", group: "Самохина, 9 — 4+" },
           { day: "", time: "18:00–19:00", group: "Августовская, 14 — младшая 4+" },
           { day: "", time: "18:00–19:00", group: "Августовская, 14 — старшая 7+" },
-          { day: "Пт", time: "16:00–16:30", group: "Парковая, 8/3 — 4+" },
+          { day: "Пятница", time: "16:00–16:30", group: "Парковая, 8/3 — 4+" },
           { day: "", time: "17:30–18:00", group: "Самохина, 9 — 4+" },
           { day: "", time: "18:00–19:00", group: "Августовская, 14 — старшая 7+" },
         ],
@@ -387,14 +407,14 @@ const coaches: Coach[] = [
       {
         title: "Изварино",
         rows: [
-          { day: "Пн", time: "10:00–11:00", group: "Старшая группа" },
-          { day: "Вт", time: "17:00–18:00", group: "Младшая группа" },
+          { day: "Понедельник", time: "10:00–11:00", group: "Старшая группа" },
+          { day: "Вторник", time: "17:00–18:00", group: "Младшая группа" },
           { day: "", time: "18:00–19:00", group: "Старшая группа" },
-          { day: "Ср", time: "10:00–11:00", group: "Старшая группа" },
-          { day: "Чт", time: "17:00–18:00", group: "Младшая группа" },
+          { day: "Среда", time: "10:00–11:00", group: "Старшая группа" },
+          { day: "Четверг", time: "17:00–18:00", group: "Младшая группа" },
           { day: "", time: "18:00–19:00", group: "Старшая группа" },
-          { day: "Пт", time: "10:00–11:00", group: "Старшая группа" },
-          { day: "Сб", time: "12:00–13:00", group: "Старшая группа" },
+          { day: "Пятница", time: "10:00–11:00", group: "Старшая группа" },
+          { day: "Суббота", time: "12:00–13:00", group: "Старшая группа" },
         ],
       },
     ],
@@ -417,6 +437,7 @@ const coaches: Coach[] = [
     role: "Тренер-преподаватель Московской областной федерации киокушин",
     rank: "III дан",
     photo: "/images/Elisaveta_vin.png",
+    modalPhoto: "/images/Elisaveta_kick.png",
     about:
       "Мастер спорта по киокусинкай, спортивный судья второй категории. Тренерский стаж — семь лет.",
     cardAddress: "ул. Тимирязевская, д. 16",
@@ -433,8 +454,8 @@ const coaches: Coach[] = [
       {
         title: "ОФП с элементами карате, 4+",
         rows: [
-          { day: "Вторник", time: "17:30–18:30", group: "ул. Августовская" },
-          { day: "Четверг", time: "17:30–18:30", group: "ул. Августовская" },
+          { day: "Вторник", time: "17:30–18:30" },
+          { day: "Четверг", time: "17:30–18:30" },
         ],
       },
     ],
@@ -447,12 +468,16 @@ const coaches: Coach[] = [
       "Призёр первенства мира",
       "Четырёхкратный победитель первенства России",
     ],
-    coachingAchievements: ["Стаж тренерской работы — 7 лет"],
+    coachingAchievements: [
+      "Стаж тренерской работы — 7 лет",
+      "Воспитал победителей первенств Москвы и Московской области 2024–2026 (ФКР)",
+      "Воспитал победителей и призеров всероссийских соревнований 2024–2026 (ФКР)",
+    ],
     personalAchievements: [
       "Российский государственный университет физической культуры и спорта — тренер по киокусинкай",
       "МГИМО — международные отношения в спорте",
       "Мастер спорта по киокусинкай",
-      "КМС по киокушин",
+      "Мастер спорта по киокушин",
       "Спортивный судья 2-й категории",
     ],
   },
@@ -505,7 +530,10 @@ function CoachCard({ coach, onOpen }: { coach: Coach; onOpen: (coach: Coach) => 
   const shortName = coach.name.split(" ").slice(0, 2).join(" ");
 
   return (
-    <article className="w-full min-w-0 overflow-hidden rounded-[4px] border border-neutral-200 bg-[var(--color-brand-bg)] shadow-sm lg:w-[240px]">
+    <article
+      id={coach.id === 8 ? "coach-rustam" : undefined}
+      className="w-full min-w-0 self-start scroll-mt-6 overflow-hidden rounded-[4px] border border-neutral-200 bg-white shadow-sm lg:w-[240px]"
+    >
       <div
         className="relative aspect-[240/295] overflow-hidden bg-[var(--color-brand-bg)] bg-top bg-no-repeat"
         style={{
@@ -591,26 +619,47 @@ function PanelButton({
 
 function ScheduleTable({ rows, compact = false }: { rows: ScheduleRow[]; compact?: boolean }) {
   const hasGroups = rows.some((row) => Boolean(row.group));
-  const desktopTextClass = compact
-    ? "lg:text-xs lg:leading-[1.05]"
-    : "lg:text-sm lg:leading-tight";
+  const hasLongGroups = rows.some((row) => (row.group?.length ?? 0) > 24);
+  const density = rows.length > 9 ? "dense" : compact ? "medium" : "large";
+  const tableTextClass =
+    density === "large"
+      ? "text-xs leading-4 sm:text-sm sm:leading-5 lg:text-[17px] lg:leading-6"
+      : density === "medium"
+        ? "text-[11px] leading-[15px] sm:text-xs sm:leading-4 lg:text-sm lg:leading-5"
+        : "text-[10px] leading-[13px] sm:text-[11px] sm:leading-[14px] lg:text-[13px] lg:leading-4";
+  const cellClass =
+    density === "large"
+      ? "px-2 py-1 sm:px-3 lg:py-1.5"
+      : density === "medium"
+        ? "px-1.5 py-0.5 sm:px-2 lg:py-1"
+        : "px-1 py-px sm:px-1.5 lg:py-0.5";
+  const dayWidthClass = hasGroups
+    ? hasLongGroups
+      ? "w-[24%]"
+      : "w-[30%]"
+    : "w-[40%]";
+  const timeWidthClass = hasGroups
+    ? hasLongGroups
+      ? "w-[25%]"
+      : "w-[35%]"
+    : "";
 
   return (
     <div className="overflow-hidden rounded-[4px] border border-neutral-200">
-      <table className={`w-full table-fixed border-collapse bg-white text-left text-[9px] leading-[1.05] sm:text-[10px] ${desktopTextClass}`}>
+      <table className={`w-full table-fixed border-collapse bg-white text-left ${tableTextClass}`}>
         <thead className="bg-[var(--color-brand-bg)] text-black">
           <tr>
-            <th className="w-[22%] border border-neutral-200 px-1 py-0.5 font-bold lg:px-2">День</th>
-            <th className={`${hasGroups ? "w-[28%] " : ""}border border-neutral-200 px-1 py-0.5 font-bold lg:px-2`}>Время</th>
-            {hasGroups ? <th className="border border-neutral-200 px-1 py-0.5 font-bold lg:px-2">Группа / адрес</th> : null}
+            <th className={`${dayWidthClass} ${cellClass} whitespace-nowrap border border-neutral-200 font-bold`}>День</th>
+            <th className={`${timeWidthClass} ${cellClass} whitespace-nowrap border border-neutral-200 font-bold`}>Время</th>
+            {hasGroups ? <th className={`${cellClass} whitespace-nowrap border border-neutral-200 font-bold`}>Группа / адрес</th> : null}
           </tr>
         </thead>
         <tbody>
           {rows.map((row, index) => (
             <tr key={`${row.day}-${row.time}-${index}`}>
-              <td className="border border-neutral-200 px-1 py-px align-top lg:px-2">{row.day}</td>
-              <td className="border border-neutral-200 px-1 py-px align-top lg:px-2">{row.time}</td>
-              {hasGroups ? <td className="border border-neutral-200 px-1 py-px align-top lg:px-2">{row.group}</td> : null}
+              <td className={`${cellClass} whitespace-nowrap border border-neutral-200 align-top font-medium`}>{row.day}</td>
+              <td className={`${cellClass} whitespace-nowrap border border-neutral-200 align-top`}>{row.time}</td>
+              {hasGroups ? <td className={`${cellClass} whitespace-nowrap border border-neutral-200 align-top`}>{row.group}</td> : null}
             </tr>
           ))}
         </tbody>
@@ -625,7 +674,7 @@ function CoachMaps({ halls, combineLocations = false }: { halls: Hall[]; combine
     halls.length === 1
       ? "lg:grid-cols-1"
       : halls.length === 2
-        ? "lg:grid-cols-1 lg:grid-rows-2"
+        ? "lg:grid-cols-2 lg:grid-rows-1"
         : "lg:grid-cols-2 lg:grid-rows-2";
 
   if (combineLocations) {
@@ -664,10 +713,28 @@ function CoachMaps({ halls, combineLocations = false }: { halls: Hall[]; combine
         </div>
       </div>
 
-      <div className={`hidden h-full gap-2 lg:grid ${layoutClass}`}>
+      <div
+        className={[
+          `hidden h-full gap-3 lg:grid ${layoutClass}`,
+          halls.length === 2 ? "items-center" : "items-stretch",
+        ].join(" ")}
+      >
         {halls.map((hall) => (
-          <div key={`${hall.point.lat}-${hall.point.lon}`} className="min-h-0">
-            <LocalInteractiveMap location={hall} compact={halls.length > 1} />
+          <div
+            key={`${hall.point.lat}-${hall.point.lon}`}
+            className={
+              halls.length === 2
+                ? "flex min-h-0 items-center justify-center"
+                : "h-full min-h-0"
+            }
+          >
+            {halls.length === 2 ? (
+              <div className="aspect-square w-full max-w-[420px]">
+                <LocalInteractiveMap location={hall} compact />
+              </div>
+            ) : (
+              <LocalInteractiveMap location={hall} compact={halls.length > 1} />
+            )}
           </div>
         ))}
       </div>
@@ -677,8 +744,15 @@ function CoachMaps({ halls, combineLocations = false }: { halls: Hall[]; combine
 
 function CoachModal({ coach, onClose }: { coach: Coach; onClose: () => void }) {
   const [activePanel, setActivePanel] = useState<CoachPanel | null>(null);
+  const [activeScheduleIndex, setActiveScheduleIndex] = useState(0);
   const halls = [coach.hall, ...(coach.additionalHalls ?? [])];
   const modalPhoto = coach.modalPhoto ?? coach.photo;
+  const modalPhotoSizeClass =
+    coach.id === 7
+      ? "right-[-70px] h-[118%] w-[680px]"
+      : coach.id === 4 || coach.id === 6
+        ? "right-[-62px] h-[114%] w-[570px]"
+        : "right-[-52px] h-[108%] w-[520px]";
   const achievementButtonCount = [
     coach.coachingAchievements,
     coach.sportAchievements,
@@ -711,22 +785,64 @@ function CoachModal({ coach, onClose }: { coach: Coach; onClose: () => void }) {
 
   function renderActivePanel() {
     if (activePanel === "schedule") {
+      const useAdaptiveScheduleLayout =
+        (coach.id === 2 || coach.id === 6) && coach.schedules.length > 1;
+
       return (
-        <div className="h-full">
-          <h4 className="mb-1.5 flex items-center gap-1.5 text-sm font-bold leading-tight text-black sm:text-base lg:mb-2 lg:gap-2 lg:text-xl">
+        <div className="flex h-full min-h-0 flex-col">
+          <h4 className="mb-2 flex shrink-0 items-center gap-1.5 text-base font-bold leading-tight text-black sm:text-lg lg:mb-3 lg:gap-2 lg:text-2xl">
             <MapPin size={18} className="text-[var(--color-brand-blue)] lg:h-[21px] lg:w-[21px]" />
             Расписание
           </h4>
-          <div className={coach.schedules.length > 1 ? "space-y-1.5 lg:space-y-2" : ""}>
-            {coach.schedules.map((schedule, index) => (
-              <section key={`${schedule.title ?? "schedule"}-${index}`}>
-                {schedule.title ? (
-                  <h5 className="mb-0.5 text-[10px] font-bold leading-tight text-[var(--color-brand-blue)] lg:mb-1 lg:text-xs">{schedule.title}</h5>
-                ) : null}
-                <ScheduleTable rows={schedule.rows} compact={coach.schedules.length > 1} />
+
+          {useAdaptiveScheduleLayout ? (
+            <>
+              <div className="mb-2 grid shrink-0 grid-cols-2 gap-1.5 lg:hidden">
+                {coach.schedules.map((schedule, index) => (
+                  <button
+                    key={`${schedule.title ?? "schedule"}-${index}-tab`}
+                    type="button"
+                    onClick={() => setActiveScheduleIndex(index)}
+                    className={[
+                      "min-h-9 rounded-[4px] px-2 text-xs font-bold transition-colors sm:text-sm",
+                      activeScheduleIndex === index
+                        ? "bg-[var(--color-brand-blue)] text-white"
+                        : "bg-[var(--color-brand-bg)] text-[var(--color-brand-blue)]",
+                    ].join(" ")}
+                    aria-pressed={activeScheduleIndex === index}
+                  >
+                    {schedule.title ?? `Расписание ${index + 1}`}
+                  </button>
+                ))}
+              </div>
+
+              <section className="min-h-0 lg:hidden">
+                <ScheduleTable rows={coach.schedules[activeScheduleIndex].rows} compact />
               </section>
-            ))}
-          </div>
+
+              <div className="hidden min-h-0 grid-cols-2 items-start gap-3 lg:grid">
+                {coach.schedules.map((schedule, index) => (
+                  <section key={`${schedule.title ?? "schedule"}-${index}`} className="min-w-0">
+                    <h5 className="mb-1.5 text-base font-bold leading-tight text-[var(--color-brand-blue)]">
+                      {schedule.title ?? `Расписание ${index + 1}`}
+                    </h5>
+                    <ScheduleTable rows={schedule.rows} compact />
+                  </section>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className={coach.schedules.length > 1 ? "space-y-2 lg:space-y-3" : ""}>
+              {coach.schedules.map((schedule, index) => (
+                <section key={`${schedule.title ?? "schedule"}-${index}`}>
+                  {schedule.title ? (
+                    <h5 className="mb-1 text-xs font-bold leading-tight text-[var(--color-brand-blue)] sm:text-sm lg:mb-1.5 lg:text-base">{schedule.title}</h5>
+                  ) : null}
+                  <ScheduleTable rows={schedule.rows} compact={coach.schedules.length > 1} />
+                </section>
+              ))}
+            </div>
+          )}
         </div>
       );
     }
@@ -832,7 +948,7 @@ function CoachModal({ coach, onClose }: { coach: Coach; onClose: () => void }) {
         <img
           src={modalPhoto}
           alt={coach.name}
-          className="pointer-events-none absolute bottom-0 right-[-52px] z-20 hidden h-[108%] w-[520px] max-w-none object-contain object-bottom lg:block"
+          className={`pointer-events-none absolute bottom-0 z-20 hidden max-w-none object-contain object-bottom lg:block ${modalPhotoSizeClass}`}
         />
       </div>
     </div>
@@ -846,7 +962,7 @@ export function Coaches() {
     <section id="coaches" className="bg-white py-14 sm:py-20">
       <div className="site-container">
         <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-[repeat(5,240px)] lg:justify-between">
-          <div className="col-span-2 flex flex-col justify-between pb-3 lg:pb-0">
+          <div className="col-span-2 flex flex-col pb-3 lg:pb-0">
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)] sm:text-lg">Команда клуба</p>
               <h2 className="mt-2 text-3xl font-bold uppercase leading-none text-black sm:mt-3 sm:text-5xl">Наши тренеры</h2>
@@ -855,7 +971,12 @@ export function Coaches() {
               </p>
             </div>
 
-            <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-7 sm:gap-6 lg:grid-cols-[240px_240px] lg:justify-between lg:gap-0">
+            <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 sm:mt-7 sm:gap-x-6 sm:gap-y-4 lg:grid-cols-[240px_240px] lg:justify-between lg:gap-x-0">
+              <div className="col-span-2 flex min-h-[58px] items-center gap-3 bg-[var(--color-brand-bg)] px-4 py-3 text-sm leading-tight text-neutral-800 sm:text-base">
+                <MapPin className="shrink-0 text-[var(--color-brand-blue)]" size={22} strokeWidth={2.2} />
+                <span>Центральный зал ул. Тимирязевская, д. 16</span>
+              </div>
+
               <div className="border-l-4 border-[var(--color-brand-red)] bg-[var(--color-brand-bg)] px-4 py-3">
                 <div className="text-2xl font-bold leading-none text-black sm:text-3xl">11</div>
                 <div className="mt-1 text-sm leading-tight text-neutral-700 sm:text-base">залов</div>

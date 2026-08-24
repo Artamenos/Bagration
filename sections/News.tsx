@@ -1,86 +1,123 @@
 "use client";
 
 import {
+  ArrowDown,
   CalendarDays,
   ChevronLeft,
   ChevronRight,
   ExternalLink,
   X,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import {
+  type MouseEvent as ReactMouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 type NewsItem = {
   id: number;
   title: string;
   date: string;
+  dateLabel?: string;
   category: string;
   description: string;
   details: string;
   image: string;
+  imagePosition?: string;
   detailsUrl?: string;
+  showDetails?: boolean;
 };
 
 const news: NewsItem[] = [
   {
     id: 1,
-    title: "Спортсмены клуба выступили на соревнованиях",
-    date: "2026-07-04",
-    category: "Соревнования",
+    title: "Учебно-тренировочные сборы команды Московской области",
+    date: "2026-08-10",
+    dateLabel: "10–20.08.2026",
+    category: "Учебно-тренировочные сборы",
     description:
-      "Команда клуба приняла участие в турнире и показала уверенную технику в нескольких возрастных категориях.",
+      "В селе Зеленоморское Республики Дагестан прошли учебно-тренировочные сборы команды Московской области.",
     details:
-      "Для спортсменов это был важный соревновательный опыт: ребята проверили подготовку, получили обратную связь от тренеров и увидели, над чем нужно работать дальше.",
-    image: "/images/album.png",
+      "10–20 августа 2026 года в селе Зеленоморское Республики Дагестан прошли УТС команды Московской области. В сборах приняли участие 40 спортсменов. Тренировки проходили под руководством сенсея Грачёва М. В., сенсея Бахчиева А. А., сенсея Антоненко Р. В. и семпая Лушкиной В. А.",
+    image: "/images/112.jpg",
   },
   {
     id: 2,
-    title: "Открыт набор в детские и взрослые группы",
-    date: "2026-07-08",
-    category: "Набор",
+    title: "В команде клуба новый тренер — Рустам Хасянов",
+    date: "2026-08-24",
+    category: "Команда клуба",
     description:
-      "Приглашаем новичков на пробное занятие. Тренировки проходят для детей и взрослых с разным уровнем подготовки.",
+      "Рустам Хасянов — тренер-преподаватель и спортивный судья третьей категории.",
     details:
-      "На первом занятии тренер познакомит с базовыми движениями, расскажет о формате тренировок и поможет подобрать подходящую группу.",
-    image: "/images/sign_up.png",
+      "Рустам Хасянов имеет первый спортивный разряд по киокушин и звание кандидата в мастера спорта по вольной борьбе. Проводит тренировки в зале на улице Яблочкова.",
+    image: "/images/news_2.jpg",
+    detailsUrl: "#coach-rustam",
   },
   {
     id: 3,
-    title: "Прошла клубная тренировка по базовой технике",
-    date: "2026-07-10",
-    category: "Тренировки",
+    title: "Открыт набор в детские и взрослые группы",
+    date: "2026-08-24",
+    category: "Набор в группы",
     description:
-      "На занятии разобрали стойки, перемещения, удары и работу в парах для разных уровней подготовки.",
+      "Приглашаем детей и взрослых с любым уровнем подготовки. Тренер поможет подобрать подходящую группу и познакомит с форматом занятий.",
     details:
-      "Такие тренировки помогают выравнивать базу у спортсменов и дают новичкам понятную опору для дальнейшего роста.",
-    image: "/images/club-img.png",
-  },
-  {
-    id: 4,
-    title: "Фотоальбом с последнего мероприятия уже доступен",
-    date: "2026-07-12",
-    category: "Фото",
-    description:
-      "Добавили подборку фотографий с выступлений, тренировок и командных встреч клуба.",
-    details:
-      "Фотоальбом помогает сохранить атмосферу мероприятий и показать жизнь клуба тем, кто только выбирает секцию.",
-    image: "/images/album.png",
-    detailsUrl: "https://sc-bagration.ru",
-  },
-  {
-    id: 5,
-    title: "Тренеры провели открытую консультацию",
-    date: "2026-07-15",
-    category: "Клуб",
-    description:
-      "Родители и спортсмены смогли задать вопросы по тренировочному процессу, аттестациям и участию в стартах.",
-    details:
-      "Такие встречи помогают лучше понимать цели тренировок и выстраивать понятный план развития спортсмена.",
-    image: "/images/hero-team.png",
+      "Занятия включают базовую технику, общую физическую подготовку, работу в парах и последовательную подготовку к аттестациям.",
+    image: "/images/sign_up.png",
+    imagePosition: "center top",
+    showDetails: false,
   },
 ];
 
-function formatNewsDate(date: string) {
-  return date.split("-").reverse().join(".");
+const AUTO_ADVANCE_DELAY = 5000;
+
+function formatNewsDate(item: NewsItem) {
+  return item.dateLabel ?? item.date.split("-").reverse().join(".");
+}
+
+function handleNewsLinkClick(
+  event: ReactMouseEvent<HTMLAnchorElement>,
+  detailsUrl: string,
+) {
+  if (!detailsUrl.startsWith("#")) {
+    return;
+  }
+
+  event.preventDefault();
+
+  const target = document.querySelector<HTMLElement>(detailsUrl);
+
+  if (!target) {
+    return;
+  }
+
+  window.history.replaceState(null, "", detailsUrl);
+  const coachesSection = target.closest<HTMLElement>("#coaches");
+  const coachesContent = coachesSection?.querySelector<HTMLElement>(".site-container");
+  const scrollTarget = coachesContent ?? coachesSection ?? target;
+  const headerOffset = window.matchMedia("(min-width: 768px)").matches ? 80 : 0;
+  const availableHeight = window.innerHeight - headerOffset;
+  const scrollTargetRect = scrollTarget.getBoundingClientRect();
+  const centeringOffset = Math.max(0, (availableHeight - scrollTargetRect.height) / 2);
+  const scrollTop = scrollTargetRect.top + window.scrollY - headerOffset - centeringOffset;
+
+  window.scrollTo({ top: scrollTop, behavior: "smooth" });
+  target.classList.remove("coach-card-highlight");
+  void target.offsetWidth;
+  target.classList.add("coach-card-highlight");
+
+  const previousTimer = Number(target.dataset.highlightTimer);
+
+  if (previousTimer) {
+    window.clearTimeout(previousTimer);
+  }
+
+  target.dataset.highlightTimer = String(
+    window.setTimeout(() => {
+      target.classList.remove("coach-card-highlight");
+      delete target.dataset.highlightTimer;
+    }, 3200),
+  );
 }
 
 function getWrappedIndex(index: number) {
@@ -89,15 +126,20 @@ function getWrappedIndex(index: number) {
 
 function SideNewsCard({ item }: { item: NewsItem }) {
   return (
-    <article className="hidden h-[300px] overflow-hidden rounded-[4px] border border-neutral-200 bg-white opacity-35 shadow-sm lg:block">
-      <img src={item.image} alt={item.title} className="h-[175px] w-full object-cover" />
+    <article className="news-side-card-enter hidden h-[300px] overflow-hidden rounded-[4px] border border-neutral-200 bg-white opacity-35 shadow-sm lg:block">
+      <img
+        src={item.image}
+        alt={item.title}
+        className="h-[175px] w-full object-cover"
+        style={{ objectPosition: item.imagePosition ?? "center" }}
+      />
 
       <div className="p-5">
         <p className="text-base font-medium text-[var(--color-brand-blue)]">
           {item.category}
         </p>
 
-        <h3 className="mt-2 line-clamp-2 text-2xl font-bold leading-tight text-black">
+        <h3 className="mt-2 text-2xl font-bold leading-tight text-black">
           {item.title}
         </h3>
       </div>
@@ -114,47 +156,57 @@ function MobileNewsCard({
 }) {
   return (
     <article className="flex min-h-[430px] w-[84vw] max-w-[360px] shrink-0 snap-center flex-col overflow-hidden rounded-[4px] border border-neutral-200 bg-white shadow-sm">
-      <img src={item.image} alt={item.title} className="h-[230px] w-full object-cover" />
+      <img
+        src={item.image}
+        alt={item.title}
+        className="h-[230px] w-full object-cover"
+        style={{ objectPosition: item.imagePosition ?? "center" }}
+      />
 
       <div className="flex flex-1 flex-col p-4">
         <div className="flex flex-wrap items-center gap-3 text-xs font-medium">
           <span className="text-[var(--color-brand-blue)]">{item.category}</span>
           <span className="flex items-center gap-1.5 text-neutral-500">
             <CalendarDays size={15} />
-            {formatNewsDate(item.date)}
+            {formatNewsDate(item)}
           </span>
         </div>
 
-        <h3 className="mt-2 line-clamp-2 text-xl font-bold leading-tight text-black">
+        <h3 className="mt-2 text-xl font-bold leading-tight text-black">
           {item.title}
         </h3>
 
-        <p className="mt-2 line-clamp-2 text-sm leading-5 text-neutral-700">
+        <p className="mt-2 text-sm leading-5 text-neutral-700">
           {item.description}
         </p>
 
-        <div className="mt-auto pt-3">
-          {item.detailsUrl ? (
+        {item.showDetails === false ? null : (
+          <div className="mt-auto pt-3">
+            {item.detailsUrl ? (
             <a
               href={item.detailsUrl}
-              target="_blank"
-              rel="noreferrer"
+              onClick={(event) => handleNewsLinkClick(event, item.detailsUrl!)}
               className="inline-flex min-h-10 items-center gap-2 font-bold text-[var(--color-brand-blue)]"
             >
-              Читать
-              <ExternalLink size={18} strokeWidth={2.3} />
+              {item.detailsUrl.startsWith("#") ? "Карточка тренера" : "Читать"}
+              {item.detailsUrl.startsWith("#") ? (
+                <ArrowDown size={18} strokeWidth={2.3} />
+              ) : (
+                <ExternalLink size={18} strokeWidth={2.3} />
+              )}
             </a>
-          ) : (
-            <button
-              type="button"
-              onClick={() => onOpen(item)}
-              className="inline-flex min-h-10 items-center gap-2 font-bold text-[var(--color-brand-blue)]"
-            >
-              Читать
-              <ExternalLink size={18} strokeWidth={2.3} />
-            </button>
-          )}
-        </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => onOpen(item)}
+                className="inline-flex min-h-10 items-center gap-2 font-bold text-[var(--color-brand-blue)]"
+              >
+                Читать
+                <ExternalLink size={18} strokeWidth={2.3} />
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </article>
   );
@@ -191,11 +243,12 @@ function NewsModal({
           src={item.image}
           alt={item.title}
           className="mt-5 h-[190px] w-full rounded-[4px] object-cover sm:mt-6 sm:h-[320px]"
+          style={{ objectPosition: item.imagePosition ?? "center" }}
         />
 
         <div className="mt-5 flex items-center gap-3 text-base font-medium text-[var(--color-brand-red)] sm:mt-6 sm:text-lg">
           <CalendarDays size={22} />
-          {formatNewsDate(item.date)}
+          {formatNewsDate(item)}
         </div>
 
         <p className="mt-4 text-base leading-6 text-neutral-800 sm:text-xl sm:leading-7">
@@ -209,6 +262,9 @@ function NewsModal({
 export function News() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [openedNews, setOpenedNews] = useState<NewsItem | null>(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [isNewsActive, setIsNewsActive] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const mobileTrackRef = useRef<HTMLDivElement>(null);
   const activeIndexRef = useRef(0);
   const scrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -230,26 +286,46 @@ export function News() {
   }
 
   function selectNews(index: number) {
+    setHasInteracted(true);
     activeIndexRef.current = index;
     setActiveIndex(index);
     scrollMobileToIndex(index);
   }
 
   useEffect(() => {
-    if (openedNews) {
+    const handleActiveSectionChange = (event: Event) => {
+      const activeSection = (event as CustomEvent<string>).detail;
+      setIsNewsActive(activeSection === "news");
+    };
+
+    window.addEventListener(
+      "bagration:active-section-change",
+      handleActiveSectionChange,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "bagration:active-section-change",
+        handleActiveSectionChange,
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    if (openedNews || (hasInteracted && isNewsActive)) {
       return;
     }
 
-    const intervalId = window.setInterval(() => {
+    const timeoutId = window.setTimeout(() => {
       const nextIndex = getWrappedIndex(activeIndexRef.current + 1);
 
       activeIndexRef.current = nextIndex;
       setActiveIndex(nextIndex);
       scrollMobileToIndex(nextIndex);
-    }, 6000);
+    }, AUTO_ADVANCE_DELAY);
 
-    return () => window.clearInterval(intervalId);
-  }, [openedNews]);
+    return () => window.clearTimeout(timeoutId);
+  }, [activeIndex, hasInteracted, isNewsActive, openedNews]);
 
   useEffect(() => {
     return () => {
@@ -292,6 +368,7 @@ export function News() {
   }
 
   function showPreviousNews() {
+    setHasInteracted(true);
     setActiveIndex((currentIndex) => {
       const nextIndex = getWrappedIndex(currentIndex - 1);
       activeIndexRef.current = nextIndex;
@@ -300,6 +377,7 @@ export function News() {
   }
 
   function showNextNews() {
+    setHasInteracted(true);
     setActiveIndex((currentIndex) => {
       const nextIndex = getWrappedIndex(currentIndex + 1);
       activeIndexRef.current = nextIndex;
@@ -308,7 +386,14 @@ export function News() {
   }
 
   return (
-    <section id="news" className="bg-white pb-14 pt-2 sm:pb-20 sm:pt-4">
+    <section
+      ref={sectionRef}
+      id="news"
+      className="bg-white pb-14 pt-2 sm:pb-20 sm:pt-4"
+      onPointerDownCapture={() => setHasInteracted(true)}
+      onFocusCapture={() => setHasInteracted(true)}
+      onKeyDownCapture={() => setHasInteracted(true)}
+    >
       <div className="site-container">
         <div
           ref={mobileTrackRef}
@@ -322,7 +407,7 @@ export function News() {
         </div>
 
         <div className="relative hidden min-h-[350px] grid-cols-[1fr_56px_minmax(0,980px)_56px_1fr] items-center gap-5 lg:grid">
-          <SideNewsCard item={previousNews} />
+          <SideNewsCard key={previousNews.id} item={previousNews} />
 
           <button
             type="button"
@@ -333,11 +418,12 @@ export function News() {
             <ChevronLeft size={28} />
           </button>
 
-          <article className="relative z-10 flex h-auto min-h-[430px] w-full flex-col overflow-hidden rounded-[4px] border border-neutral-200 bg-white shadow-sm sm:min-h-[460px] lg:h-[310px] lg:min-h-0 lg:flex-row">
+          <article key={activeNews.id} className="news-active-card-enter relative z-10 flex h-auto min-h-[430px] w-full flex-col overflow-hidden rounded-[4px] border border-neutral-200 bg-white shadow-sm sm:min-h-[460px] lg:h-[310px] lg:min-h-0 lg:flex-row">
             <img
               src={activeNews.image}
               alt={activeNews.title}
               className="h-[170px] w-full flex-none object-cover sm:h-[220px] lg:h-full lg:w-[470px]"
+              style={{ objectPosition: activeNews.imagePosition ?? "center" }}
             />
 
             <div className="flex min-h-0 flex-1 flex-col p-4 sm:p-5">
@@ -348,40 +434,45 @@ export function News() {
 
                 <span className="flex items-center gap-2 text-neutral-500">
                   <CalendarDays size={17} />
-                  {formatNewsDate(activeNews.date)}
+                  {formatNewsDate(activeNews)}
                 </span>
               </div>
 
-              <h3 className="mt-3 line-clamp-3 text-xl font-bold leading-tight text-black sm:text-3xl lg:line-clamp-2">
+              <h3 className="mt-3 text-xl font-bold leading-tight text-black sm:text-3xl">
                 {activeNews.title}
               </h3>
 
-              <p className="mt-3 line-clamp-3 text-sm leading-5 text-neutral-800 sm:text-lg sm:leading-6 lg:line-clamp-2">
+              <p className="mt-3 text-sm leading-5 text-neutral-800 sm:text-lg sm:leading-6">
                 {activeNews.description}
               </p>
 
-              <div className="mt-auto pt-4">
-                {activeNews.detailsUrl ? (
+              {activeNews.showDetails === false ? null : (
+                <div className="mt-auto pt-4">
+                  {activeNews.detailsUrl ? (
                   <a
                     href={activeNews.detailsUrl}
-                    target="_blank"
-                    rel="noreferrer"
+                    onClick={(event) => handleNewsLinkClick(event, activeNews.detailsUrl!)}
                     className="inline-flex min-h-10 items-center gap-2 text-base font-bold text-[var(--color-brand-blue)] transition-colors hover:text-[#245ba8] sm:text-lg"
                   >
-                    Читать
-                    <ExternalLink size={19} strokeWidth={2.3} />
+                    {activeNews.detailsUrl.startsWith("#") ? "Карточка тренера" : "Читать"}
+                    {activeNews.detailsUrl.startsWith("#") ? (
+                      <ArrowDown size={19} strokeWidth={2.3} />
+                    ) : (
+                      <ExternalLink size={19} strokeWidth={2.3} />
+                    )}
                   </a>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => setOpenedNews(activeNews)}
-                    className="inline-flex min-h-10 items-center gap-2 text-base font-bold text-[var(--color-brand-blue)] transition-colors hover:text-[#245ba8] sm:text-lg"
-                  >
-                    Читать
-                    <ExternalLink size={19} strokeWidth={2.3} />
-                  </button>
-                )}
-              </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setOpenedNews(activeNews)}
+                      className="inline-flex min-h-10 items-center gap-2 text-base font-bold text-[var(--color-brand-blue)] transition-colors hover:text-[#245ba8] sm:text-lg"
+                    >
+                      Читать
+                      <ExternalLink size={19} strokeWidth={2.3} />
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           </article>
 
@@ -394,7 +485,7 @@ export function News() {
             <ChevronRight size={28} />
           </button>
 
-          <SideNewsCard item={nextNews} />
+          <SideNewsCard key={nextNews.id} item={nextNews} />
         </div>
 
         <div className="mt-2 flex justify-center gap-2">

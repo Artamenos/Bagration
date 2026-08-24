@@ -30,12 +30,25 @@ export function Header() {
   useEffect(() => {
     function updateActiveSection() {
       const activationLine = window.innerHeight * 0.35;
+      const newsActivationLine = window.innerHeight * 0.7;
       const isAtPageBottom =
         window.scrollY + window.innerHeight >=
         document.documentElement.scrollHeight - 2;
 
       if (isAtPageBottom) {
         setActiveSection(navItems.at(-1)?.id ?? "hero");
+        return;
+      }
+
+      const newsSection = document.getElementById("news");
+      const aboutSection = document.getElementById("about");
+      const shouldActivateNewsEarly =
+        newsSection !== null &&
+        newsSection.getBoundingClientRect().top <= newsActivationLine &&
+        (aboutSection === null || aboutSection.getBoundingClientRect().top > activationLine);
+
+      if (shouldActivateNewsEarly) {
+        setActiveSection("news");
         return;
       }
 
@@ -61,6 +74,14 @@ export function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent("bagration:active-section-change", {
+        detail: activeSection,
+      }),
+    );
+  }, [activeSection]);
+
   return (
     <header className="fixed left-0 top-0 z-50 hidden w-full bg-black text-white md:block">
       <div className="site-container flex h-16 max-w-7xl items-center justify-between md:h-20">
@@ -83,6 +104,7 @@ export function Header() {
                 key={item.label}
                 href={item.href}
                 onClick={(event) => scrollToSection(event, item.id)}
+                aria-current={isActive ? "page" : undefined}
                 className={
                   isActive
                     ? "border-b-2 border-[var(--color-brand-red)] pb-2 text-[var(--color-brand-red)]"
