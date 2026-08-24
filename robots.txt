@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: sc-bagration.ru
+Sitemap: https://sc-bagration.ru/sitemap.xml
