@@ -210,7 +210,7 @@ const coaches: Coach[] = [
   },
   {
     id: 3,
-    name: "Аберхаев Адель Айясович",
+    name: "Аберхаев Адель Айсяевич",
     role: "Тренер-преподаватель Московской областной федерации киокушин",
     rank: "II дан, КМС",
     photo: "/images/Adel_vin.png",
@@ -227,8 +227,19 @@ const coaches: Coach[] = [
       dataFile: "/maps/vernadskogo.osm.json",
       bounds: vernadskogoBounds,
     },
+    additionalHalls: [
+      {
+        name: "ГБОУ Школа № 1454 «Тимирязевская»",
+        address: "Москва, Дмитровское шоссе, д. 15, корп. 3",
+        mapQuery: "Москва, Дмитровское шоссе, 15к3, ГБОУ Школа № 1454 Тимирязевская",
+        point: { lat: 55.818574, lon: 37.571516 },
+        dataFile: "/maps/timiryazevskaya.osm.json",
+        bounds: timiryazevskayaBounds,
+      },
+    ],
     schedules: [
       {
+        title: "Проспект Вернадского, 94к7",
         rows: [
           { day: "Вторник", time: "17:00–18:00", group: "Младшая группа, 6–8 лет" },
           { day: "", time: "18:00–19:00", group: "Старшая группа, 8–15 лет" },
@@ -236,6 +247,17 @@ const coaches: Coach[] = [
           { day: "", time: "18:00–19:00", group: "Старшая группа, 8–15 лет" },
           { day: "Суббота", time: "17:00–18:00", group: "Младшая группа, 6–8 лет" },
           { day: "", time: "18:00–19:00", group: "Старшая группа, 8–15 лет" },
+        ],
+      },
+      {
+        title: "Дмитровское шоссе, 15к3",
+        rows: [
+          { day: "Понедельник", time: "17:00–18:30" },
+          { day: "", time: "18:30–20:00" },
+          { day: "Среда", time: "17:00–18:30" },
+          { day: "", time: "18:30–20:00" },
+          { day: "Пятница", time: "17:00–18:30" },
+          { day: "", time: "18:30–20:00" },
         ],
       },
     ],
@@ -786,7 +808,7 @@ function CoachModal({ coach, onClose }: { coach: Coach; onClose: () => void }) {
   function renderActivePanel() {
     if (activePanel === "schedule") {
       const useAdaptiveScheduleLayout =
-        (coach.id === 2 || coach.id === 6) && coach.schedules.length > 1;
+        (coach.id === 2 || coach.id === 3 || coach.id === 6) && coach.schedules.length > 1;
 
       return (
         <div className="flex h-full min-h-0 flex-col">
