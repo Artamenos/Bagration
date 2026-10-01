@@ -63,13 +63,6 @@ const vernadskogoBounds: MapBounds = {
   maxLon: 37.4895,
 };
 
-const raspletinaBounds: MapBounds = {
-  minLat: 55.7805,
-  maxLat: 55.799,
-  minLon: 37.462,
-  maxLon: 37.497,
-};
-
 const aprelevkaBounds: MapBounds = {
   minLat: 55.526,
   maxLat: 55.5615,
@@ -271,57 +264,6 @@ const coaches: Coach[] = [
       "Воспитал призёров первенств Москвы 2021–2026",
       "Воспитал призёров первенств Московской области 2020–2026",
       "Воспитал призёров всероссийских соревнований 2022–2026",
-    ],
-    personalAchievements: [],
-  },
-  {
-    id: 4,
-    name: "Улещенко Андрей Андреевич",
-    role: "Тренер-преподаватель Московской областной федерации киокушин",
-    rank: "I дан, МСМК",
-    photo: "/images/Andrei_vin.png",
-    modalPhoto: "/images/Andrei_kick.png",
-    about:
-      "Мастер спорта международного класса по карате киокушинкай. Более десяти лет работает детским тренером.",
-    cardAddress: "ул. Расплетина, 1",
-    transit: { label: "метро Октябрьское Поле", color: "#8E479C" },
-    hall: {
-      name: "Зал на улице Расплетина",
-      address: "Москва, ул. Расплетина, 1",
-      mapQuery: "Москва, улица Расплетина, 1",
-      point: { lat: 55.789795, lon: 37.479618 },
-      dataFile: "/maps/raspletina.osm.json",
-      bounds: raspletinaBounds,
-    },
-    schedules: [
-      {
-        rows: [
-          { day: "Понедельник", time: "17:00–18:00" },
-          { day: "", time: "18:00–19:00" },
-          { day: "", time: "19:00–20:00" },
-          { day: "Вторник", time: "18:00–19:00" },
-          { day: "", time: "19:00–20:00" },
-          { day: "Среда", time: "17:00–18:00" },
-          { day: "", time: "18:00–19:00" },
-          { day: "", time: "19:00–20:00" },
-          { day: "Четверг", time: "18:00–19:00" },
-          { day: "", time: "19:00–20:00" },
-          { day: "Пятница", time: "17:00–18:00" },
-          { day: "", time: "18:00–19:00" },
-          { day: "", time: "19:00–20:00" },
-        ],
-      },
-    ],
-    sportAchievements: [
-      "Серебряный призёр чемпионата мира",
-      "Чемпион Европы",
-      "Двукратный чемпион России",
-      "Мастер спорта международного класса по карате киокушинкай",
-      "В 2016 году входил в топ-10 лучших бойцов мира до 90 кг среди всех федераций карате киокушинкай",
-    ],
-    coachingAchievements: [
-      "10 лет работы детским тренером",
-      "Тренировал детей российских звёзд, блогеров и предпринимателей",
     ],
     personalAchievements: [],
   },
@@ -554,7 +496,7 @@ function CoachCard({ coach, onOpen }: { coach: Coach; onOpen: (coach: Coach) => 
   return (
     <article
       id={coach.id === 8 ? "coach-rustam" : undefined}
-      className="w-full min-w-0 self-start scroll-mt-6 overflow-hidden rounded-[4px] border border-neutral-200 bg-white shadow-sm lg:w-full min-[1360px]:w-[240px]"
+      className="w-full min-w-0 self-start scroll-mt-6 overflow-hidden rounded-[4px] border border-neutral-200 bg-white shadow-sm"
     >
       <div
         className="relative aspect-[240/295] overflow-hidden bg-[var(--color-brand-bg)] bg-top bg-no-repeat"
@@ -772,7 +714,7 @@ function CoachModal({ coach, onClose }: { coach: Coach; onClose: () => void }) {
   const modalPhotoSizeClass =
     coach.id === 7
       ? "right-[-70px] h-[118%] w-[680px]"
-      : coach.id === 4 || coach.id === 6
+      : coach.id === 6
         ? "right-[-62px] h-[114%] w-[570px]"
         : "right-[-52px] h-[108%] w-[520px]";
   const achievementButtonCount = [
@@ -983,8 +925,8 @@ export function Coaches() {
   return (
     <section id="coaches" className="bg-white py-14 sm:py-20">
       <div className="site-container">
-        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4 xl:grid-cols-5 min-[1360px]:grid-cols-[repeat(5,240px)] min-[1360px]:justify-between">
-          <div className="col-span-2 flex flex-col pb-3 lg:pb-0">
+        <div className="grid grid-cols-4 gap-x-3 gap-y-3 sm:gap-x-6 sm:gap-y-6 lg:grid-cols-6 xl:grid-cols-10">
+          <div className="col-span-4 flex flex-col pb-3 lg:col-span-6 lg:pb-0 xl:col-span-4">
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)] sm:text-lg">Команда клуба</p>
               <h2 className="mt-2 text-3xl font-bold uppercase leading-none text-black sm:mt-3 sm:text-5xl">Наши тренеры</h2>
@@ -993,7 +935,7 @@ export function Coaches() {
               </p>
             </div>
 
-            <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 sm:mt-7 sm:gap-x-6 sm:gap-y-4 lg:grid-cols-2 min-[1360px]:grid-cols-[240px_240px] min-[1360px]:justify-between min-[1360px]:gap-x-0">
+            <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 sm:mt-7 sm:gap-x-6 sm:gap-y-4">
               <div className="col-span-2 flex min-h-[58px] items-center gap-3 bg-[var(--color-brand-bg)] px-4 py-3 text-sm leading-tight text-neutral-800 sm:text-base">
                 <MapPin className="shrink-0 text-[var(--color-brand-blue)]" size={22} strokeWidth={2.2} />
                 <span>Центральный зал ул. Тимирязевская, д. 16</span>
@@ -1011,8 +953,17 @@ export function Coaches() {
             </div>
           </div>
 
-          {coaches.map((coach) => (
-            <CoachCard key={coach.id} coach={coach} onOpen={setSelectedCoach} />
+          {coaches.map((coach, index) => (
+            <div
+              key={coach.id}
+              className={[
+                "col-span-2 min-w-0 flex justify-center",
+                index === coaches.length - 1 ? "col-start-2 lg:col-start-3 xl:col-start-auto" : "",
+                index === 3 ? "xl:col-start-2" : "",
+              ].join(" ")}
+            >
+              <CoachCard coach={coach} onOpen={setSelectedCoach} />
+            </div>
           ))}
         </div>
       </div>
