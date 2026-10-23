@@ -28,8 +28,10 @@ if [ "$configured_remote" != "$remote" ]; then
   exit 1
 fi
 
-git --git-dir="$repository" fetch --quiet --prune \
-  origin production:refs/remotes/origin/production
+# This cache tracks one deployment branch. Do not prune it while updating the
+# same ref: older hosting Git versions can delete the ref before locking it.
+git --git-dir="$repository" fetch --quiet --no-prune \
+  origin refs/heads/production:refs/remotes/origin/production
 
 commit="$(git --git-dir="$repository" rev-parse refs/remotes/origin/production)"
 case "$commit" in
