@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "local": "node scripts/local-cms.mjs",
+    "local:account": "docker compose exec web php /usr/local/bin/local-account.php",
+    "local:stop": "docker compose stop",
     "dev": "next dev",
     "build": "next build",
     "build:staging": "node scripts/build-static.mjs staging",

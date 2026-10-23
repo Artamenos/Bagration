@@ -44,6 +44,11 @@ jobs:
       - name: Build production export
         run: npm run build:production
 
+      - name: Check PHP syntax and security primitives
+        run: |
+          find cms -name '*.php' -print0 | xargs -0 -n1 php -l
+          php cms/test.php
+
       - name: Verify deployment files
         shell: bash
         run: |
