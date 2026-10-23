@@ -64,7 +64,10 @@ if [ ! -d "$release" ]; then
 fi
 
 current_target="$(readlink -f "$public" 2>/dev/null || true)"
-if [ -f "$base/shared/config.php" ]; then
+if [ -f "$release/admin/cli.php" ]; then
+  # Do not activate a CMS release without its persistent database/content.
+  # Conversely, preparing shared must not mutate an older static release.
+  test -f "$base/shared/config.php"
   test -d "$base/shared/media"
   test -f "$base/shared/content/current.json"
   for directory in media content; do
@@ -72,7 +75,9 @@ if [ -f "$base/shared/config.php" ]; then
       test ! -e "$release/$directory"
       ln -s "$base/shared/$directory" "$release/$directory"
     fi
+    test "$(readlink -f "$release/$directory")" = "$(readlink -f "$base/shared/$directory")"
   done
+  /opt/php82/bin/php "$release/admin/cli.php" ready
 fi
 release_target="$(readlink -f "$release")"
 

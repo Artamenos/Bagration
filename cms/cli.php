@@ -28,6 +28,19 @@ try {
     } elseif($command==='disable-admin') {
         query('UPDATE admins SET active=0 WHERE login=?',[$argv[2]??'']); echo "Administrator disabled; existing sessions revoked.\n";
     } elseif($command==='snapshot') { publishSnapshot(); echo "Snapshot rebuilt.\n";
+    } elseif($command==='ready') {
+        if((int)query('SELECT MAX(version) FROM migrations')->fetchColumn()!==1) throw new RuntimeException('Unsupported database schema');
+        if(!(int)query('SELECT COUNT(*) FROM admins WHERE active=1')->fetchColumn()) throw new RuntimeException('Create a production administrator first');
+        if(!is_writable(shared().'/content') || !is_writable(shared().'/media')) throw new RuntimeException('Persistent directories are not writable');
+        $published=json_decode(file_get_contents(shared().'/content/current.json'),true,512,JSON_THROW_ON_ERROR);
+        if($published!==snapshot()) throw new RuntimeException('Published snapshot does not match database');
+        foreach(['news','events'] as $kind) foreach($published[$kind] as $item) if(!empty($item['image'])) {
+            if(!preg_match('~^/(images/[a-zA-Z0-9_.-]+|media/[a-f0-9]{32}\\.jpg)$~',$item['image'])) throw new RuntimeException('Invalid published image path');
+            if(!is_file(dirname(__DIR__).$item['image'])) throw new RuntimeException('Published image is missing from release');
+        }
+        if(!is_file(dirname(__DIR__).'/preview/index.php')) throw new RuntimeException('Preview endpoint missing');
+        if((fileperms(shared().'/config.php') & 0077)!==0) throw new RuntimeException('Config must not be group/world readable');
+        echo "CMS release readiness checks passed.\n";
     } elseif($command==='storage') {
         // Account-wide usage must be checked in Timeweb: PHP cannot reliably see the account quota.
         $bytes=0; foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(dirname(shared()),FilesystemIterator::SKIP_DOTS)) as $file) if($file->isFile()&&!$file->isLink()) $bytes+=$file->getSize();

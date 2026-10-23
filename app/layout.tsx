@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Oswald } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const oswald = Oswald({
-  subsets: ["latin", "cyrillic"],
-  weight: ["300", "400", "500", "600", "700"],
+const oswald = localFont({
+  src: "./fonts/Oswald-Variable.ttf",
+  weight: "300 700",
+  display: "swap",
 });
 
 const allowIndexing = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";

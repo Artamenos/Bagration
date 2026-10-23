@@ -3,6 +3,10 @@ import { fileURLToPath } from "node:url";
 import { cpSync, mkdirSync, copyFileSync } from "node:fs";
 
 const target = process.argv[2];
+const extraArgs = process.argv.slice(3);
+if (extraArgs.some(arg => arg !== "--webpack")) {
+  throw new Error("Only --webpack is supported as an optional build flag");
+}
 
 if (target !== "staging" && target !== "production") {
   console.error("Usage: node scripts/build-static.mjs <staging|production>");
@@ -19,7 +23,7 @@ const env = {
 
 console.log(`Building ${target}: ${env.NEXT_PUBLIC_SITE_URL}`);
 
-const result = spawnSync(process.execPath, [nextBin, "build"], {
+const result = spawnSync(process.execPath, [nextBin, "build", ...extraArgs], {
   cwd: process.cwd(),
   env,
   stdio: "inherit",
