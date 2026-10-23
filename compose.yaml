@@ -1,0 +1,28 @@
+name: bagration-local
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: bagration
+      MYSQL_USER: bagration
+      MYSQL_PASSWORD: local-database-only
+      MYSQL_ROOT_PASSWORD: local-root-only
+    volumes: [database:/var/lib/mysql]
+    healthcheck:
+      test: [CMD, mysqladmin, ping, -h, "127.0.0.1"]
+      interval: 5s
+      retries: 30
+  web:
+    build: ./deployment/local
+    depends_on:
+      db:
+        condition: service_healthy
+    ports: ["127.0.0.1:8443:443", "127.0.0.1:8081:80"]
+    volumes:
+      - ./cms:/srv/Bagration/releases/local/admin:ro
+      - ./public/images:/srv/Bagration/releases/local/images:ro
+      - shared:/srv/Bagration/shared
+    extra_hosts: ["host.docker.internal:host-gateway"]
+volumes:
+  database:
+  shared:

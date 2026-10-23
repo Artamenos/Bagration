@@ -1,5 +1,6 @@
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { cpSync, mkdirSync, copyFileSync } from "node:fs";
 
 const target = process.argv[2];
 
@@ -24,4 +25,11 @@ const result = spawnSync(process.execPath, [nextBin, "build"], {
   stdio: "inherit",
 });
 
+if (result.status === 0) {
+  cpSync("cms", "out/admin", { recursive: true });
+  mkdirSync("out/preview", { recursive: true });
+  copyFileSync("cms/preview.php", "out/preview/index.php");
+  copyFileSync("cms/runtime.php", "out/preview/runtime.php");
+  copyFileSync("cms/.htaccess", "out/preview/.htaccess");
+}
 process.exit(result.status ?? 1);

@@ -64,6 +64,16 @@ if [ ! -d "$release" ]; then
 fi
 
 current_target="$(readlink -f "$public" 2>/dev/null || true)"
+if [ -f "$base/shared/config.php" ]; then
+  test -d "$base/shared/media"
+  test -f "$base/shared/content/current.json"
+  for directory in media content; do
+    if [ ! -L "$release/$directory" ]; then
+      test ! -e "$release/$directory"
+      ln -s "$base/shared/$directory" "$release/$directory"
+    fi
+  done
+fi
 release_target="$(readlink -f "$release")"
 
 if [ "$current_target" = "$release_target" ]; then

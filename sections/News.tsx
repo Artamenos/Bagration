@@ -1,4 +1,5 @@
 "use client";
+import { usePublishedContent } from "@/components/usePublishedContent";
 
 import {
   ArrowDown,
@@ -120,8 +121,10 @@ function handleNewsLinkClick(
   );
 }
 
-function getWrappedIndex(index: number) {
-  return (index + news.length) % news.length;
+function validNews(item: unknown): item is NewsItem {
+  if (!item || typeof item !== "object") return false;
+  const n = item as NewsItem;
+  return Number.isInteger(n.id) && [n.title,n.date,n.category,n.description,n.details,n.image].every(v => typeof v === "string") && /^\/(images\/[\w.-]+|media\/[a-f0-9]{32}\.jpg)$/.test(n.image) && (!n.detailsUrl || /^(#[\w-]+|https:\/\/[^\s<>"']+)$/.test(n.detailsUrl));
 }
 
 function SideNewsCard({ item }: { item: NewsItem }) {
@@ -260,6 +263,12 @@ function NewsModal({
 }
 
 export function News() {
+  const published = usePublishedContent("news", news, validNews);
+  return published.length ? <NewsCarousel key={published.map(n => n.id).join(",")} news={published} /> : <section id="news" />;
+}
+
+function NewsCarousel({ news }: { news: NewsItem[] }) {
+  function getWrappedIndex(index: number) { return (index + news.length) % news.length; }
   const [activeIndex, setActiveIndex] = useState(0);
   const [openedNews, setOpenedNews] = useState<NewsItem | null>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
