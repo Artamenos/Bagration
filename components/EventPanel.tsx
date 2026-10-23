@@ -31,6 +31,6 @@ export function EventPanel({ events, index, date, onSelect, height }: { events: 
         </div>
         {item.description ? <p className={styles.description}>{item.description}</p> : null}
       </div>
-    </div> : <div className={styles.empty}><img src="/images/logo_coaches.png" alt="Багратион" /><h3>{date ? "На эту дату событий нет" : "Выберите дату"}</h3><p>{date ? "Посмотрите другие дни календаря." : "Турниры, сборы и события клуба — вся информация появится здесь."}</p></div>}
+    </div> : <div className={styles.empty}><div className={styles.logoMark}><img src="/images/logo_coaches.png" alt="Багратион" /></div><span className={styles.emptyEyebrow}>ТУРНИРЫ · СБОРЫ · ЖИЗНЬ КЛУБА</span><h3>{date ? "На эту дату событий нет" : "Выберите дату"}</h3><p>{date ? "Посмотрите другие дни календаря." : "Выберите день в календаре слева, чтобы узнать о мероприятии."}</p></div>}
   </aside>;
 }

@@ -1,6 +1,7 @@
 "use client";
 import { usePublishedContent } from "@/components/usePublishedContent";
 import { EventPanel } from "@/components/EventPanel";
+import panelStyles from "@/components/EventPanel.module.css";
 
 import {
   ChevronLeft,
@@ -29,6 +30,7 @@ type CalendarDay = {
 const events: EventItem[] = [
   {
     id: 1,
+    layout: "poster",
     title: "XIII Летняя Спартакиада учащихся России",
     city: "Пермь",
     startDate: "2026-08-27",
@@ -36,6 +38,7 @@ const events: EventItem[] = [
   },
   {
     id: 2,
+    layout: "poster",
     title: "XVIII Всероссийские Юношеские Игры боевых искусств",
     city: "Анапа",
     startDate: "2026-09-13",
@@ -43,6 +46,7 @@ const events: EventItem[] = [
   },
   {
     id: 3,
+    layout: "poster",
     title: "Всероссийские соревнования «Киокушин на Волге»",
     city: "Самара",
     startDate: "2026-09-24",
@@ -50,6 +54,7 @@ const events: EventItem[] = [
   },
   {
     id: 4,
+    layout: "poster",
     title: "Всероссийские соревнования «Памяти Сергея Увицкого»",
     city: "Москва",
     startDate: "2026-10-22",
@@ -57,6 +62,7 @@ const events: EventItem[] = [
   },
   {
     id: 5,
+    layout: "poster",
     title: "Чемпионат Дальневосточного ФО",
     city: "Хабаровск",
     startDate: "2026-11-06",
@@ -64,6 +70,7 @@ const events: EventItem[] = [
   },
   {
     id: 6,
+    layout: "poster",
     title: "Первенство Дальневосточного ФО",
     city: "Хабаровск",
     startDate: "2026-11-06",
@@ -71,6 +78,7 @@ const events: EventItem[] = [
   },
   {
     id: 7,
+    layout: "poster",
     title: "Чемпионат Приволжского ФО",
     city: "Пермь",
     startDate: "2026-11-13",
@@ -78,6 +86,7 @@ const events: EventItem[] = [
   },
   {
     id: 8,
+    layout: "poster",
     title: "Первенство Приволжского ФО",
     city: "Пермь",
     startDate: "2026-11-13",
@@ -85,6 +94,7 @@ const events: EventItem[] = [
   },
   {
     id: 9,
+    layout: "poster",
     title: "Чемпионат Уральского ФО",
     city: "Екатеринбург",
     startDate: "2026-11-13",
@@ -92,6 +102,7 @@ const events: EventItem[] = [
   },
   {
     id: 10,
+    layout: "poster",
     title: "Первенство Уральского ФО",
     city: "Екатеринбург",
     startDate: "2026-11-13",
@@ -99,6 +110,7 @@ const events: EventItem[] = [
   },
   {
     id: 11,
+    layout: "poster",
     title: "Чемпионат Северо-Кавказского ФО",
     city: "Нальчик",
     startDate: "2026-11-14",
@@ -106,6 +118,7 @@ const events: EventItem[] = [
   },
   {
     id: 12,
+    layout: "poster",
     title: "Первенство Северо-Кавказского ФО",
     city: "Нальчик",
     startDate: "2026-11-14",
@@ -113,6 +126,7 @@ const events: EventItem[] = [
   },
   {
     id: 13,
+    layout: "poster",
     title: "Чемпионат Сибирского ФО",
     city: "Новосибирск",
     startDate: "2026-11-14",
@@ -120,6 +134,7 @@ const events: EventItem[] = [
   },
   {
     id: 14,
+    layout: "poster",
     title: "Первенство Сибирского ФО",
     city: "Новосибирск",
     startDate: "2026-11-14",
@@ -127,6 +142,7 @@ const events: EventItem[] = [
   },
   {
     id: 15,
+    layout: "poster",
     title: "Чемпионат Южного ФО",
     city: "пгт Энем",
     startDate: "2026-11-20",
@@ -134,6 +150,7 @@ const events: EventItem[] = [
   },
   {
     id: 16,
+    layout: "poster",
     title: "Первенство Южного ФО",
     city: "пгт Энем",
     startDate: "2026-11-20",
@@ -141,6 +158,7 @@ const events: EventItem[] = [
   },
   {
     id: 17,
+    layout: "poster",
     title: "Чемпионат Центрального ФО",
     city: "Москва",
     startDate: "2026-11-28",
@@ -148,6 +166,7 @@ const events: EventItem[] = [
   },
   {
     id: 18,
+    layout: "poster",
     title: "Первенство Центрального ФО",
     city: "Москва",
     startDate: "2026-11-28",
@@ -255,9 +274,9 @@ export function Events() {
   return (
     <section id="events" className="bg-white py-14 sm:py-20">
       <div className="site-container">
-        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[520px_1fr]">
-          <div ref={calendarRef} className="rounded-[4px] bg-white p-3 shadow-sm sm:p-6">
-            <div className="mb-5 border-b border-neutral-200 pb-4 text-center sm:mb-6 sm:pb-5">
+        <div className={`${panelStyles.eventShell} ${panelStyles.designAccent} grid grid-cols-1 items-start gap-8 lg:grid-cols-[520px_1fr]`}>
+          <div ref={calendarRef} className={`${panelStyles.calendar} rounded-[4px] bg-white p-3 shadow-sm sm:p-6`}>
+            <div className={`${panelStyles.calendarHeading} mb-5 border-b border-neutral-200 pb-4 text-center sm:mb-6 sm:pb-5`}>
               <p className="text-sm font-medium uppercase tracking-[0.12em] text-[var(--color-brand-blue)] sm:text-lg">
                 Календарь клуба
               </p>
@@ -267,7 +286,7 @@ export function Events() {
               </h2>
             </div>
 
-            <div className="mb-4 flex items-center justify-between gap-2 sm:mb-6">
+            <div className={`${panelStyles.monthBar} mb-4 flex items-center justify-between gap-2 sm:mb-6`}>
               <button
                 type="button"
                 onClick={() => changeMonth(-1)}
@@ -302,19 +321,22 @@ export function Events() {
                 const dayEvents = currentEvents.filter((item) => isDateInsideEvent(day.dateKey, item));
                 const event = dayEvents[0];
                 const isSelected = day.dateKey === selectedDateKey;
-                const isEventStart = event?.startDate === day.dateKey;
-                const isEventEnd = (event?.endDate ?? event?.startDate) === day.dateKey;
-                const isSingleDayEvent = Boolean(event && isEventStart && isEventEnd);
-                const isRangeEvent = Boolean(event && !isSingleDayEvent);
+                const isEventStart = dayEvents.some(item => item.startDate === day.dateKey);
+                const isEventEnd = dayEvents.some(item => (item.endDate ?? item.startDate) === day.dateKey);
+                const isSingleDayEvent = dayEvents.some(item => (item.endDate ?? item.startDate) === item.startDate);
+                // A single-day event must not interrupt another event's continuous range.
+                const connectsLeft = dayEvents.some(item => item.startDate < day.dateKey);
+                const connectsRight = dayEvents.some(item => (item.endDate ?? item.startDate) > day.dateKey);
+                const isRangeEvent = connectsLeft || connectsRight;
 
                 return (
                   <div key={day.dateKey} className="relative flex h-10 items-center justify-center sm:h-12">
                     {isRangeEvent ? (
                       <span
                         className={[
-                          "absolute top-1/2 h-9 -translate-y-1/2 bg-[var(--color-brand-red)]/20",
-                          isEventStart ? "left-1/2" : "left-0",
-                          isEventEnd ? "right-1/2" : "right-0",
+                          "absolute top-1/2 h-9 -translate-y-1/2 bg-[var(--color-brand-red)]/10",
+                          connectsLeft ? "left-0" : "left-1/2",
+                          connectsRight ? "right-0" : "right-1/2",
                         ].join(" ")}
                       />
                     ) : null}
