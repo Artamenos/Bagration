@@ -1,5 +1,7 @@
 User-Agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /preview/
 
 Host: sc-bagration.ru
 Sitemap: https://sc-bagration.ru/sitemap.xml
