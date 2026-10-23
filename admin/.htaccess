@@ -1,5 +1,5 @@
 Options -Indexes
 DirectoryIndex index.php
-<FilesMatch "^(event-fields\.php|delete-controls\.php|view\.php|runtime\.php|schema\.sql|config.*|cli\.php|test\.php|preview\.php|seed\.json)$">
+<FilesMatch "(?i)^(?!index\.php$).*(\.(php[0-9]?|phtml|phar|sql|json|md|ini|log|bak|env)|~)$">
 Require all denied
 </FilesMatch>
