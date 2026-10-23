@@ -2,6 +2,7 @@
 import { usePublishedContent } from "@/components/usePublishedContent";
 import { EventPanel } from "@/components/EventPanel";
 import panelStyles from "@/components/EventPanel.module.css";
+import { eventsForDate, validDayOrder } from "@/components/eventOrdering";
 
 import {
   ChevronLeft,
@@ -18,6 +19,7 @@ type EventItem = {
   layout?: "poster" | "photo";
   image?: string;
   description?: string;
+  dayOrder?: Record<string, number>;
 };
 
 type CalendarDay = {
@@ -232,7 +234,7 @@ function isDateInsideEvent(dateKey: string, event: EventItem) {
 function validEvent(item: unknown): item is EventItem {
   if (!item || typeof item !== "object") return false;
   const e = item as EventItem;
-  return Number.isInteger(e.id) && typeof e.title === "string" && typeof e.city === "string" && /^\d{4}-\d{2}-\d{2}$/.test(e.startDate) && (!e.endDate || /^\d{4}-\d{2}-\d{2}$/.test(e.endDate)) && (!e.layout || ["poster","photo"].includes(e.layout)) && (!e.image || /^\/(images\/[\w.-]+|media\/[a-f0-9]{32}\.jpg)$/.test(e.image)) && (e.description === undefined || typeof e.description === "string");
+  return Number.isInteger(e.id) && typeof e.title === "string" && typeof e.city === "string" && /^\d{4}-\d{2}-\d{2}$/.test(e.startDate) && (!e.endDate || /^\d{4}-\d{2}-\d{2}$/.test(e.endDate)) && (!e.layout || ["poster","photo"].includes(e.layout)) && (!e.image || /^\/(images\/[\w.-]+|media\/[a-f0-9]{32}\.jpg)$/.test(e.image)) && (e.description === undefined || typeof e.description === "string") && validDayOrder(e.dayOrder);
 }
 
 export function Events() {
@@ -257,7 +259,7 @@ export function Events() {
   );
 
   const selectedEvents = selectedDateKey
-    ? currentEvents.filter((event) => isDateInsideEvent(selectedDateKey, event))
+    ? eventsForDate(currentEvents, selectedDateKey)
     : [];
   const activeEventIndex = Math.min(selectedEventIndex, Math.max(0, selectedEvents.length - 1));
 

@@ -4,6 +4,7 @@ ini_set('display_errors','0');
 require __DIR__.'/runtime.php';
 header('X-Robots-Tag: noindex, nofollow'); header('Cache-Control: no-store'); header('Referrer-Policy: no-referrer'); header('X-Content-Type-Options: nosniff');
 header("Content-Security-Policy: default-src 'none'; img-src 'self'; style-src 'self'; frame-ancestors 'none'; base-uri 'none'");
+if(empty($_SERVER['HTTPS']) || $_SERVER['HTTPS']==='off') { http_response_code(403); exit('HTTPS required'); }
 try {
     $token=(string)($_GET['token']??''); if(!preg_match('/^[a-f0-9]{64}$/',$token)) throw new RuntimeException();
     $payload=query('SELECT payload FROM previews WHERE token=? AND expires>?',[hash('sha256',$token),time()])->fetchColumn(); if(!$payload) throw new RuntimeException();

@@ -86,23 +86,20 @@ function handleNewsLinkClick(
 
   event.preventDefault();
 
-  const target = document.querySelector<HTMLElement>(detailsUrl);
+  const target = document.getElementById(detailsUrl.slice(1));
 
   if (!target) {
     return;
   }
 
   window.history.replaceState(null, "", detailsUrl);
-  const coachesSection = target.closest<HTMLElement>("#coaches");
-  const coachesContent = coachesSection?.querySelector<HTMLElement>(".site-container");
-  const scrollTarget = coachesContent ?? coachesSection ?? target;
-  const headerOffset = window.matchMedia("(min-width: 768px)").matches ? 80 : 0;
+  const headerOffset = document.querySelector("header")?.getBoundingClientRect().height ?? 0;
   const availableHeight = window.innerHeight - headerOffset;
-  const scrollTargetRect = scrollTarget.getBoundingClientRect();
+  const scrollTargetRect = target.getBoundingClientRect();
   const centeringOffset = Math.max(0, (availableHeight - scrollTargetRect.height) / 2);
   const scrollTop = scrollTargetRect.top + window.scrollY - headerOffset - centeringOffset;
 
-  window.scrollTo({ top: scrollTop, behavior: "smooth" });
+  window.scrollTo({ top: Math.max(0, scrollTop), behavior: "smooth" });
   target.classList.remove("coach-card-highlight");
   void target.offsetWidth;
   target.classList.add("coach-card-highlight");
