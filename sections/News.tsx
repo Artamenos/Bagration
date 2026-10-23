@@ -93,10 +93,15 @@ function handleNewsLinkClick(
   }
 
   window.history.replaceState(null, "", detailsUrl);
+  const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+  const coachesSection = target.closest<HTMLElement>("#coaches");
+  const scrollTarget = isDesktop
+    ? coachesSection?.querySelector<HTMLElement>(".site-container") ?? coachesSection ?? target
+    : target;
   const headerOffset = document.querySelector("header")?.getBoundingClientRect().height ?? 0;
   const availableHeight = window.innerHeight - headerOffset;
-  const scrollTargetRect = target.getBoundingClientRect();
-  const centeringOffset = Math.max(0, (availableHeight - scrollTargetRect.height) / 2);
+  const scrollTargetRect = scrollTarget.getBoundingClientRect();
+  const centeringOffset = (availableHeight - scrollTargetRect.height) / 2;
   const scrollTop = scrollTargetRect.top + window.scrollY - headerOffset - centeringOffset;
 
   window.scrollTo({ top: Math.max(0, scrollTop), behavior: "smooth" });

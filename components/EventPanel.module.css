@@ -1,4 +1,4 @@
-.panel{position:relative;min-width:0;display:flex;flex-direction:column;overflow:hidden}.panel,.calendar{outline:1px solid #d9dfe8;box-shadow:0 4px 14px #172b4510;background:white}
+.panel{position:relative;min-width:0;display:flex;flex-direction:column;overflow:hidden;height:var(--calendar-height,480px)}.panel,.calendar{outline:1px solid #d9dfe8;box-shadow:0 4px 14px #172b4510;background:white}
 .header{position:absolute;top:12px;right:12px;z-index:2;pointer-events:none}.header:empty{display:none}
 .navigation{display:flex;align-items:center;gap:12px;font-size:16px;font-variant-numeric:tabular-nums}.total{color:#98a3b5}.navigation button{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:1px solid #e3e9f2;border-radius:6px;color:var(--color-brand-blue);background:#fff;cursor:pointer;transition:background .2s}.navigation button:hover{background:#eef4ff}.navigation button:focus-visible{outline:2px solid var(--color-brand-blue);outline-offset:3px}
 .body{flex:1;min-height:0;display:grid;animation:appear .25s ease-out}.poster{grid-template-columns:min(52%,var(--poster-width,44%)) minmax(0,1fr)}.photo{grid-template-rows:65% minmax(0,1fr)}
@@ -31,3 +31,34 @@
 
 
 @media(max-width:600px){.designAccent .calendarHeading h2{font-size:34px}.designAccent .copy{padding-left:16px;padding-right:16px}.emptyEyebrow{font-size:9px;letter-spacing:1.1px}.designAccent .empty h3{font-size:29px}.designAccent .empty p{font-size:17px}.logoMark{width:150px;height:150px}.empty .logoMark img{width:135px;height:135px}}
+
+/* Phones: the image/content determine the height, never the calendar or a scroll box. */
+@media(max-width:767px){
+  .panel{height:auto}
+  .body{flex:none;min-height:0}
+  .poster{grid-template-columns:58% minmax(0,1fr);align-items:stretch}
+  .poster .visual{display:flex;align-items:flex-start}
+  .poster .visual img{position:static;display:block;width:100%;height:auto;object-fit:contain}
+  .poster .copy,.designAccent .poster .copy{overflow:visible;padding:12px 10px}
+  .poster .eyebrow{display:none}
+  .poster .copy h3{font-size:22px;line-height:1.25;margin:0 0 14px;overflow-wrap:anywhere}
+  .poster .meta{gap:8px}
+  .poster .meta p{font-size:16px;line-height:1.45;gap:5px}
+  .poster .meta svg{width:16px;height:16px;margin-top:3px}
+  .poster .description{font-size:18px;line-height:1.5;margin-top:14px;padding-top:14px}
+  .poster .visual.placeholder{min-height:250px;align-items:center;justify-content:center}
+  .poster .visual.placeholder img{width:110px;height:110px;transform:none;object-fit:contain}
+  .photo{grid-template-rows:auto auto}
+  .photo .visual{aspect-ratio:16/10}
+  .photo .copy,.designAccent .photo .copy{overflow:visible;padding:18px}
+  .empty{min-height:300px;padding:28px 20px}
+  .header{position:static;order:2;align-self:stretch;padding:8px 10px;border-top:1px solid #e4e9f1}
+  .header:empty{display:none}
+  .navigation{justify-content:flex-end;padding:0;box-shadow:none;gap:10px;font-size:14px}
+  .navigation button{width:34px;height:34px}
+  .panel:has(.navigation) .poster .copy{padding-top:12px}
+}
+@media(max-width:374px){
+  .poster{grid-template-columns:56% minmax(0,1fr)}
+  .poster .copy,.designAccent .poster .copy{padding-left:8px;padding-right:8px}
+}

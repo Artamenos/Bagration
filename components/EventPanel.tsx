@@ -10,7 +10,7 @@ const dateText = (date: string) => date.split("-").reverse().join(".");
 export function EventPanel({ events, index, date, onSelect, height }: { events: PanelEvent[]; index: number; date: string | null; onSelect: (index: number) => void; height: number }) {
   const [imageRatio, setImageRatio] = useState(1080 / 1536);
   const item = events[index];
-  return <aside className={`${styles.panel} rounded-[4px] bg-white shadow-sm`} style={{ height, "--poster-width": `${height * imageRatio}px` } as CSSProperties} aria-label="Информация о мероприятии">
+  return <aside className={`${styles.panel} rounded-[4px] bg-white shadow-sm`} style={{ "--calendar-height": `${height}px`, "--poster-width": `${height * imageRatio}px` } as CSSProperties} aria-label="Информация о мероприятии">
     <div className={styles.header}>
       {events.length > 1 ? <div className={styles.navigation}>
         <button type="button" aria-label="Предыдущее событие" onClick={() => onSelect((index - 1 + events.length) % events.length)}><ChevronLeft size={20} /></button>
