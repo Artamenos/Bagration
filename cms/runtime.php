@@ -14,7 +14,7 @@ function config(): array {
 }
 function db(): PDO {
     static $pdo;
-    if (!$pdo) { $c = config(); $pdo = new PDO($c['dsn'], $c['user'], $c['password'], [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION, PDO::ATTR_EMULATE_PREPARES=>false]); }
+    if (!$pdo) { $c = config(); $pdo = new PDO($c['dsn'], $c['user'], $c['password'], [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION, PDO::ATTR_EMULATE_PREPARES=>false, PDO::MYSQL_ATTR_MULTI_STATEMENTS=>false]); }
     return $pdo;
 }
 function query(string $sql, array $args = []): PDOStatement { $s = db()->prepare($sql); $s->execute($args); return $s; }
@@ -54,16 +54,20 @@ function publishSnapshot(): void {
     try { if(file_put_contents($temporary,$json)===false) throw new RuntimeException('Snapshot write failed'); chmod($temporary,0644); if(!rename($temporary,$dir.'/current.json')) throw new RuntimeException('Snapshot rename failed'); } finally { if(is_file($temporary)) unlink($temporary); }
 }
 function textField(array $data,string $key,int $max,bool $required=false): string {
+    if(isset($data[$key]) && !is_scalar($data[$key])) throw new RuntimeException('Неверный формат поля '.$key);
     $value=trim((string)($data[$key]??''));
+    if(!mb_check_encoding($value,'UTF-8') || str_contains($value,"\0")) throw new RuntimeException('Неверный формат поля '.$key);
     if(mb_strlen($value)>$max || ($required && $value==='')) throw new RuntimeException('Проверьте поле '.$key);
     return $value;
 }
-function validDate(string $value): bool { $d=DateTimeImmutable::createFromFormat('!Y-m-d',$value); return $d && $d->format('Y-m-d')===$value; }
+function validDate(string $value): bool { if(!preg_match('/^[1-9][0-9]{3}-[0-9]{2}-[0-9]{2}$/D',$value)) return false; $d=DateTimeImmutable::createFromFormat('!Y-m-d',$value); return $d && $d->format('Y-m-d')===$value; }
 function uploadPhoto(array $file): string {
-    if(($file['error']??1)!==UPLOAD_ERR_OK || $file['size']>8*1024*1024 || !is_uploaded_file($file['tmp_name'])) throw new RuntimeException('Выберите фотографию размером до 8 МБ');
-    $info=getimagesize($file['tmp_name']);
+    if(!isset($file['error'],$file['size'],$file['tmp_name']) || !is_int($file['error']) || !is_int($file['size']) || !is_string($file['tmp_name']) || $file['error']!==UPLOAD_ERR_OK || $file['size']<=0 || $file['size']>8*1024*1024 || !is_uploaded_file($file['tmp_name'])) throw new RuntimeException('Выберите фотографию размером до 8 МБ');
+    $info=@getimagesize($file['tmp_name']);
     if(!$info || !in_array($info[2],[IMAGETYPE_JPEG,IMAGETYPE_PNG,IMAGETYPE_WEBP],true) || $info[0]*$info[1]>20000000) throw new RuntimeException('Подойдёт JPEG, PNG или WebP до 20 мегапикселей');
-    $image=imagecreatefromstring(file_get_contents($file['tmp_name']));
+    $mime=(new finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']);
+    if(!in_array($mime,['image/jpeg','image/png','image/webp'],true)) throw new RuntimeException('Недопустимый тип изображения');
+    $image=@imagecreatefromstring(file_get_contents($file['tmp_name']));
     if(!$image) throw new RuntimeException('Не удалось прочитать фотографию');
     $id=bin2hex(random_bytes(16)); $path='/media/'.$id.'.jpg';
     try { if(!imagejpeg($image,shared().$path,85)) throw new RuntimeException('Не удалось сохранить фотографию'); chmod(shared().$path,0644); } finally { imagedestroy($image); }
@@ -75,6 +79,7 @@ function validateItem(array $data,string $kind): array {
     if($kind==='events') {
         $item['city']=textField($data,'city',180,true); $item['startDate']=textField($data,'startDate',10,true); $item['endDate']=textField($data,'endDate',10)?:$item['startDate'];
         if(!validDate($item['startDate'])||!validDate($item['endDate'])||$item['endDate']<$item['startDate']) throw new RuntimeException('Проверьте даты');
+        if((new DateTimeImmutable($item['startDate']))->diff(new DateTimeImmutable($item['endDate']))->days>365) throw new RuntimeException('Одно событие может длиться не более года');
         $item['layout']=textField($data,'layout',10)?:'photo';
         if(!in_array($item['layout'],['poster','photo'],true)) throw new RuntimeException('Выберите «Постер» или «Фото»');
         $item['description']=textField($data,'description',12000);

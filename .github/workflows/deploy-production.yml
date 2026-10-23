@@ -41,6 +41,9 @@ jobs:
       - name: Run lint
         run: npm run lint
 
+      - name: Check per-day event ordering
+        run: npm run test:event-order
+
       - name: Build production export
         run: npm run build:production
 

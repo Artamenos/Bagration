@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "test:cms": "node scripts/test-admin-security.mjs",
+    "test:event-order": "node scripts/test-event-ordering.mjs",
     "local": "node scripts/local-cms.mjs",
     "local:account": "docker compose exec web php /usr/local/bin/local-account.php",
     "local:stop": "docker compose stop",
