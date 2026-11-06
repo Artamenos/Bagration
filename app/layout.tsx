@@ -24,7 +24,7 @@ const structuredData = {
   sport: "Киокушин",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "ул. Тимирязевская, д. 16",
+    streetAddress: "Астрадамский пр., д. 5",
     addressLocality: "Москва",
     addressCountry: "RU",
   },

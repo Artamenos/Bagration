@@ -75,7 +75,7 @@ const coaches: Coach[] = [
     id: 1,
     name: "Бахчиев Арменак Александрович",
     role: "Президент РФСОО «Московская областная федерация по виду спорта киокушин»",
-    rank: "III дан",
+    rank: "IV дан",
     photo: "/images/Armenak_vin.png",
     modalPhoto: "/images/Armenak_kick.png",
     about:
@@ -146,26 +146,16 @@ const coaches: Coach[] = [
     cardAddress: "Лобня, ул. Чехова, 3А",
     transit: { label: "МЦД-1 Лобня", color: "#F6A600" },
     hall: {
-      name: "Зал в Москве",
-      address: "Москва, ул. Тимирязевская, д. 16",
-      mapQuery: "Москва, улица Тимирязевская, 16",
-      point: { lat: 55.81412, lon: 37.566656 },
-      dataFile: "/maps/timiryazevskaya.osm.json",
-      bounds: timiryazevskayaBounds,
+      name: "Зал в Лобне",
+      address: "Московская область, Лобня, ул. Чехова, 3А",
+      mapQuery: "Московская область, Лобня, улица Чехова, 3А",
+      point: { lat: 56.013814, lon: 37.479843 },
+      dataFile: "/maps/lobnya.osm.json",
+      bounds: lobnyaBounds,
     },
-    additionalHalls: [
-      {
-        name: "Зал в Лобне",
-        address: "Московская область, Лобня, ул. Чехова, 3А",
-        mapQuery: "Московская область, Лобня, улица Чехова, 3А",
-        point: { lat: 56.013814, lon: 37.479843 },
-        dataFile: "/maps/lobnya.osm.json",
-        bounds: lobnyaBounds,
-      },
-    ],
     schedules: [
       {
-        title: "Москва, Тимирязево",
+        title: "Москва, Астрадамский пр., д. 5",
         rows: [
           { day: "Понедельник", time: "17:00–17:45", group: "Дети 4–7 лет" },
           { day: "", time: "17:45–19:15", group: "Дети 7–17 лет" },
@@ -404,19 +394,19 @@ const coaches: Coach[] = [
     modalPhoto: "/images/Elisaveta_kick.png",
     about:
       "Мастер спорта по киокусинкай, спортивный судья второй категории. Тренерский стаж — семь лет.",
-    cardAddress: "ул. Тимирязевская, д. 16",
+    cardAddress: "Астрадамский пр., д. 5",
     transit: { label: "метро Тимирязевская", color: "#A1A2A3" },
     hall: {
-      name: "Зал на Тимирязевской",
-      address: "Москва, ул. Тимирязевская, д. 16",
-      mapQuery: "Москва, улица Тимирязевская, 16",
-      point: { lat: 55.814142763938754, lon: 37.566691924265655 },
+      name: "Зал на Астрадамском проезде",
+      address: "Москва, Астрадамский пр., д. 5",
+      mapQuery: "Москва, Астрадамский проезд, 5",
+      point: { lat: 55.812663, lon: 37.560307 },
       dataFile: "/maps/timiryazevskaya.osm.json",
       bounds: timiryazevskayaBounds,
     },
     schedules: [
       {
-        title: "ОФП с элементами карате, 4+",
+        title: "Астрадамский пр., д. 5 · ОФП с элементами карате, 4+",
         rows: [
           { day: "Вторник", time: "17:30–18:30" },
           { day: "Четверг", time: "17:30–18:30" },
@@ -938,11 +928,11 @@ export function Coaches() {
             <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 sm:mt-7 sm:gap-x-6 sm:gap-y-4">
               <div className="col-span-2 flex min-h-[58px] items-center gap-3 bg-[var(--color-brand-bg)] px-4 py-3 text-sm leading-tight text-neutral-800 sm:text-base">
                 <MapPin className="shrink-0 text-[var(--color-brand-blue)]" size={22} strokeWidth={2.2} />
-                <span>Центральный зал ул. Тимирязевская, д. 16</span>
+                <span>Зал на Астрадамском пр., д. 5</span>
               </div>
 
               <div className="border-l-4 border-[var(--color-brand-red)] bg-[var(--color-brand-bg)] px-4 py-3">
-                <div className="text-2xl font-bold leading-none text-black sm:text-3xl">11</div>
+                <div className="text-2xl font-bold leading-none text-black sm:text-3xl">10</div>
                 <div className="mt-1 text-sm leading-tight text-neutral-700 sm:text-base">залов</div>
               </div>
 

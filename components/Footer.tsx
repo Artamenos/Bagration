@@ -40,7 +40,7 @@ export function Footer() {
 
             <div className="flex items-start gap-3">
               <MapPin size={22} className="mt-0.5 shrink-0 text-[var(--color-brand-red)]" />
-              <span>Москва, ул. Тимирязевская, д. 16</span>
+              <span>Астрадамский пр., д. 5</span>
             </div>
           </div>
         </div>

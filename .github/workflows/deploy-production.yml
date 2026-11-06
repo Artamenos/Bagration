@@ -44,6 +44,9 @@ jobs:
       - name: Check per-day event ordering
         run: npm run test:event-order
 
+      - name: Check coach addresses and schedules
+        run: node scripts/test-coach-locations.mjs
+
       - name: Build production export
         run: npm run build:production
 
